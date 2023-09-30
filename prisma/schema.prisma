@@ -10,9 +10,122 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Team {
-  id               String       @id @default(uuid())
-  name             String       @unique
-  morningScrumTime String
-  eveningScrumTime String
+model Account {
+  id                 String    @id @default(cuid())
+  userId             String
+  providerType       String
+  providerId         String
+  providerAccountId  String
+  refreshToken       String?
+  accessToken        String?
+  accessTokenExpires DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  user               User      @relation(fields: [userId], references: [id])
+
+  @@unique([providerId, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  userId       String
+  expires      DateTime
+  sessionToken String   @unique
+  accessToken  String   @unique
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id])
+}
+
+model User {
+  id                       String                  @id @default(cuid())
+  name                     String?
+  email                    String?                 @unique
+  emailVerified            DateTime?
+  image                    String?
+  createdAt                DateTime                @default(now())
+  updatedAt                DateTime                @updatedAt
+  accounts                 Account[]
+  sessions                 Session[]
+  aiTools                  AiTool[]
+  bookmarks                Bookmark[]
+  NewsletterSubscription   NewsletterSubscription? @relation(fields: [newsletterSubscriptionId], references: [id])
+  newsletterSubscriptionId String?
+}
+
+model VerificationRequest {
+  id         String   @id @default(cuid())
+  identifier String
+  token      String   @unique
+  expires    DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([identifier, token])
+}
+
+model AiTool {
+  id               String        @id @default(cuid())
+  title            String
+  toolDescription  String
+  shortDescription String
+  useCase1         String
+  useCase2         String
+  useCase3         String
+  price            Int
+  pricePlan        PriceFormat
+  payment          PaymentStatus
+  toolURL          String        @unique
+  toolFeature      String
+  toolTags         String[] // Use an array for tags
+  toolScreenshot   String // You can store a URL to the screenshot image
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  user             User          @relation(fields: [userId], references: [id])
+  userId           String
+  bookmarks        Bookmark[]
+  category         String
+  subcategorie     String
+}
+
+model NewsletterSubscription {
+  id         String   @id @default(cuid())
+  userId     String   @unique // Unique constraint on userId (one-to-one relation)
+  email      String   @unique // Unique constraint on email (one email can subscribe only once)
+  subscribed Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  users      User[]
+}
+
+model Bookmark {
+  id        String   @id @default(cuid())
+  userId    String
+  toolId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user User   @relation(fields: [userId], references: [id])
+  tool AiTool @relation(fields: [toolId], references: [id])
+}
+
+model Category {
+  id            String   @id @default(cuid())
+  name          String   @unique
+  subcategories String[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+enum PaymentStatus {
+  FREEMIUM
+  FREE
+  PAID
+  FREE_TRIAL
+  CONTACT_FOR_PRICING
+}
+
+enum PriceFormat {
+  DOLLARS_PER_MONTH
+  DOLLARS_PER_WEEK
+  DOLLARS_PER_MINUTE
 }
