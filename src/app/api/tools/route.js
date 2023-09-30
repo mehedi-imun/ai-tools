@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import {PrimaClient} from '@prisma/client'
-const prisma = new PrimaClient()
+
+
 // http://localhost:3001/api/tools
 // GET
 export async function GET(req, res) {

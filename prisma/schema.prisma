@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -38,19 +35,17 @@ model Session {
 }
 
 model User {
-  id                       String                  @id @default(cuid())
-  name                     String?
-  email                    String?                 @unique
-  emailVerified            DateTime?
-  image                    String?
-  createdAt                DateTime                @default(now())
-  updatedAt                DateTime                @updatedAt
-  accounts                 Account[]
-  sessions                 Session[]
-  aiTools                  AiTool[]
-  bookmarks                Bookmark[]
-  NewsletterSubscription   NewsletterSubscription? @relation(fields: [newsletterSubscriptionId], references: [id])
-  newsletterSubscriptionId String?
+  id            String     @id @default(cuid())
+  name          String?
+  email         String?    @unique
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  accounts      Account[]
+  sessions      Session[]
+  aiTools       AiTool[]
+  bookmarks     Bookmark[]
 }
 
 model VerificationRequest {
@@ -88,24 +83,14 @@ model AiTool {
   subcategorie     String
 }
 
-model NewsletterSubscription {
-  id         String   @id @default(cuid())
-  userId     String   @unique // Unique constraint on userId (one-to-one relation)
-  email      String   @unique // Unique constraint on email (one email can subscribe only once)
-  subscribed Boolean  @default(true)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  users      User[]
-}
-
 model Bookmark {
   id        String   @id @default(cuid())
   userId    String
   toolId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user User   @relation(fields: [userId], references: [id])
-  tool AiTool @relation(fields: [toolId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+  tool      AiTool   @relation(fields: [toolId], references: [id])
 }
 
 model Category {
