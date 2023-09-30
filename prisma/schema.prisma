@@ -72,6 +72,7 @@ model AiTool {
   payment          PaymentStatus
   toolURL          String        @unique
   toolFeature      String
+  views            Int           @default(0)
   toolTags         String[] // Use an array for tags
   toolScreenshot   String // You can store a URL to the screenshot image
   createdAt        DateTime      @default(now())
@@ -102,7 +103,7 @@ model Category {
 }
 
 enum PaymentStatus {
-  FREEMIUM
+  PREMIUM
   FREE
   PAID
   FREE_TRIAL
