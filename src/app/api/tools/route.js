@@ -5,9 +5,6 @@ import { NextResponse } from "next/server";
 
 // http://localhost:3001/api/tools
 // GET
-// export async function GET(req, res) {
-//   return NextResponse.json({ message: "Hello world I'm GET Method" });
-// }
 const toolsFilterableFields = [
   'searchTerm',
   'payment',
