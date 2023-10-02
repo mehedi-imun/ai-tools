@@ -96,8 +96,8 @@ data: result
 
 // POST
 export async function POST(req, res) {
- try {
   const {data} = await req.json();
+ try {
   const result = await prisma.AiTool.create({ data});
  return NextResponse.json({ message: "successfully create ai tool",result },{status:200},);
  } catch (error) {
@@ -106,7 +106,3 @@ export async function POST(req, res) {
 }
 
 
-// DELETE
-export async function DELETE(req, res) {
-  return NextResponse.json({ message: "Hello world I'm DELETE Method" });
-}
