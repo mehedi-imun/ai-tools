@@ -1,63 +1,33 @@
 
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
+import { calculatePagination, pick, toolSearchableFields, toolsFilterableFields } from "../helpers";
 
 // http://localhost:3001/api/tools
 // GET
-const toolsFilterableFields = [
-  'searchTerm',
-  'pricing',
-  'price',
-  'verified',
-  'new',
-  'popular',
-  'toolsAddedToday'
-];
- const toolSearchableFields = [
-  'title',
-  'toolDescription',
-  'shortDescription',
-  'useCase1',
-  'useCase2',
-  'useCase3'
-];
-const pick = (obj, keys) => {
- 
-  const finalObj = {};
 
-  for (const key of keys) {
-    if (obj && Object.hasOwnProperty.call(obj, key)) {
-      finalObj[key] = obj[key];
-    }
-  }
-  return finalObj;
-};
-const calculatePagination = (options) => {
-  const page = Number(options.page || 1);
-  const limit = Number(options.limit || 10);
-  const skip = (page - 1) * limit;
 
-  const sortBy = options.sortBy || 'createdAt' ;
-  const sortOrder = options.sortOrder || 'desc';
-
-  return {
-    page,
-    limit,
-    skip,
-    sortBy,
-    sortOrder,
-  };
-};
 
 export async function GET(req, res){
   const { searchParams } = new URL(req.url);
-  const filters = pick(Object.fromEntries(searchParams), toolsFilterableFields);
-  const options = pick(Object.fromEntries(searchParams), ['limit', 'page', 'sortBy', 'sortOrder']);
-  console.log(options)
+  const query = Array.from(searchParams).reduce((result, [key, value]) => {
+    if (result[key]) {
+      if (Array.isArray(result[key])) {
+        result[key].push(value);
+      } else {
+        result[key] = [result[key], value];
+      }
+    } else {
+      result[key] = value;
+    }
+    return result;
+  }, {});
+  const filters = pick(query, toolsFilterableFields);
+  const options = pick(query, ['limit', 'page', 'sortBy', 'sortOrder']);
   const { limit, page, skip } = calculatePagination(options);
-  const { searchTerm, ...filterData } = filters;
+  const { searchTerm,pricing, ...filterData } = filters;
   const andConditions = [];
-
+  
  if (searchTerm) {
     andConditions.push({
         OR: toolSearchableFields.map((field) => ({
@@ -78,20 +48,26 @@ export async function GET(req, res){
     });
   }
   
+  if (pricing && pricing.length >= 0) {
+    andConditions.push({
+      pricing: {
+        in: Array.isArray(pricing) ? pricing : [pricing]
+      },
+    });
+  }
 let orderBy = {};
 
   if (options.sortBy === 'popular') {
     orderBy = { views: 'desc' }; 
   } else {
-    // Default sorting by createdAt in descending order
     orderBy = options.sortBy && options.sortOrder ? { [options.sortBy]: options.sortOrder } : { createdAt: 'desc' };
   }
   
 const whereConditions = andConditions.length > 0 ? { OR: andConditions } : {};
-
 try {
   const result = await prisma.AiTool.findMany({
     where:whereConditions,
+   
 
 skip,
 take: limit,
@@ -120,16 +96,15 @@ data: result
 
 // POST
 export async function POST(req, res) {
-
-
-  
-  return NextResponse.json({ message: "Hello world I'm POST Method" });
+ try {
+  const {data} = await req.json();
+  const result = await prisma.AiTool.create({ data});
+ return NextResponse.json({ message: "successfully create ai tool",result },{status:200},);
+ } catch (error) {
+  return NextResponse.json({ message: "filed",error:error.message },{status:500});
+ }
 }
 
-// PUT
-export async function PUT(req, res) {
-  return NextResponse.json({ message: "Hello world I'm PUT Method" });
-}
 
 // DELETE
 export async function DELETE(req, res) {
