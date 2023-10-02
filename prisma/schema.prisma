@@ -112,6 +112,7 @@ model Review {
   id          String       @id @default(cuid())
   content     String
   rating      Int          @default(0)
+  status      ReviewStatus @default(PENDING)
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
   userId      String
@@ -119,15 +120,22 @@ model Review {
   toolId      String
   tool        AiTool       @relation(fields: [toolId], references: [id])
   reviewLikes ReviewLike[]
+
+  @@unique([userId])
 }
 
 model ReviewLike {
-  id       String  @id @default(cuid())
-  like     Boolean
-  userId   String
-  user     User    @relation(fields: [userId], references: [id])
-  reviewId String
-  review   Review  @relation(fields: [reviewId], references: [id])
+  id          String  @id @default(cuid())
+  like        Boolean @default(false)
+  likeCount   Int     @default(0)
+  unLike      Boolean @default(false)
+  unLikeCount Int     @default(0)
+  userId      String
+  user        User    @relation(fields: [userId], references: [id])
+  reviewId    String
+  review      Review  @relation(fields: [reviewId], references: [id])
+
+  @@unique([userId])
 }
 
 model Payment {
@@ -156,6 +164,11 @@ enum PaymentStatus {
   SUCCESS
   FAILED
   PENDING
+}
+
+enum ReviewStatus {
+  PENDING
+  APPROVE
 }
 
 enum UserRole {

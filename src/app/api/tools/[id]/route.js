@@ -9,6 +9,20 @@ export const GET = async (req, { params }) => {
     const post = await prisma.AiTool.update({
       where: { id },
       data: { views: { increment: 1 } },
+      include:{
+        
+        reviews:{
+          include:{
+            user:{
+              select:{
+                id:true,
+                name:true
+              }
+            },
+            reviewLikes:true
+          }
+        }
+      }
     });
 
     return NextResponse.json({ data:post });
