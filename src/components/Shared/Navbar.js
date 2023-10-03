@@ -1,7 +1,12 @@
+"use client";
 import Link from "next/link";
+import { useState } from "react";
 import { ThemeChanger } from "../Providers/ThemeChanger";
-
+import { signOut, useSession } from "next-auth/react";
 const Navbar = () => {
+  const [open, setOpen] = useState(false);
+
+  const { status } = useSession();
   return (
     <div className="navbar bg-base-100 border-b h-24">
       <div className="navbar-start">
@@ -133,7 +138,19 @@ const Navbar = () => {
       </div>
       <div className="navbar-end">
         <ThemeChanger />
-        <a className="btn">Login</a>
+        {status === "unauthenticated" ? (
+        <Link className="btn btn-xs" href="/login" >
+          Login
+        </Link>
+      ) : (
+        <>
+         
+          <span className="btn btn-outline btn-primary" onClick={signOut}>
+            Logout
+          </span>
+        </>
+      )}
+       
       </div>
     </div>
   );

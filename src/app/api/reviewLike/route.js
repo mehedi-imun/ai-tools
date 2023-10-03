@@ -28,6 +28,7 @@ export async function POST(req, res) {
             },
           },
         });
+        return { message: 'liked successfully', action: 'liked' };
       } else {
         // If the user has already liked the review, delete the like record and decrement likeCount
         await tx.reviewLike.deleteMany({
@@ -45,12 +46,12 @@ export async function POST(req, res) {
             },
           },
         });
+        return { message: 'remove successfully', action: 'remove' };
       }
     });
 
-    return NextResponse.json({ message: 'Review action successfully'},{status:200});
+    return NextResponse.json(result);
   } catch (error) {
-    console.error(error);
     return NextResponse.json({ message: 'Failed', error: error.message });
   }
 }

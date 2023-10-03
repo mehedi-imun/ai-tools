@@ -1,5 +1,6 @@
-import "./globals.css";
+import AuthProvider from "@/components/Providers/AuthProvider";
 import Providers from "@/components/Providers/Providers";
+import "./globals.css";
 
 export const metadata = {
   title: "AI Tools",
@@ -10,9 +11,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="light">
       <body>
+      <AuthProvider>
         <Providers>
+       
           <main className="min-h-screen w-[90%] mx-auto py-5">{children}</main>
+          
         </Providers>
+        </AuthProvider>
       </body>
     </html>
   );
