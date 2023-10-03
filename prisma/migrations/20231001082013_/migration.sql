@@ -1,5 +1,8 @@
 -- CreateEnum
-CREATE TYPE "paymentStatus" AS ENUM ('FREEMIUM', 'FREE', 'PAID', 'FREE_TRIAL', 'CONTACT_FOR_PRICING');
+CREATE TYPE "PaymentStatus" AS ENUM ('SUCCESS', 'FAILED', 'PENDING');
+
+-- CreateEnum
+CREATE TYPE "PaymentPlan" AS ENUM ('PREMIUM', 'FREE', 'PAID', 'FREE_TRIAL', 'CONTACT_FOR_PRICING');
 
 -- CreateEnum
 CREATE TYPE "PriceFormat" AS ENUM ('DOLLARS_PER_MONTH', 'DOLLARS_PER_WEEK', 'DOLLARS_PER_MINUTE');
@@ -42,7 +45,6 @@ CREATE TABLE "User" (
     "image" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "newsletterSubscriptionId" TEXT,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -68,31 +70,21 @@ CREATE TABLE "AiTool" (
     "useCase1" TEXT NOT NULL,
     "useCase2" TEXT NOT NULL,
     "useCase3" TEXT NOT NULL,
-    "price" TEXT NOT NULL,
-    "payment" "paymentStatus" NOT NULL,
+    "price" INTEGER NOT NULL,
+    "pricePlan" "PriceFormat" NOT NULL,
+    "paymentPlan" "PaymentPlan" NOT NULL,
     "toolURL" TEXT NOT NULL,
     "toolFeature" TEXT NOT NULL,
+    "views" INTEGER NOT NULL DEFAULT 0,
     "toolTags" TEXT[],
     "toolScreenshot" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "userId" TEXT NOT NULL,
     "category" TEXT NOT NULL,
-    "subcategories" TEXT[],
+    "subcategorie" TEXT NOT NULL,
 
     CONSTRAINT "AiTool_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "NewsletterSubscription" (
-    "id" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
-    "email" TEXT NOT NULL,
-    "subscribed" BOOLEAN NOT NULL DEFAULT true,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-
-    CONSTRAINT "NewsletterSubscription_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -117,6 +109,42 @@ CREATE TABLE "Category" (
     CONSTRAINT "Category_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "Review" (
+    "id" TEXT NOT NULL,
+    "content" TEXT NOT NULL,
+    "rating" INTEGER NOT NULL DEFAULT 0,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "userId" TEXT NOT NULL,
+    "toolId" TEXT NOT NULL,
+
+    CONSTRAINT "Review_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "ReviewLike" (
+    "id" TEXT NOT NULL,
+    "like" BOOLEAN NOT NULL,
+    "userId" TEXT NOT NULL,
+    "reviewId" TEXT NOT NULL,
+
+    CONSTRAINT "ReviewLike_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Payment" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "paymentId" TEXT NOT NULL,
+    "amount" INTEGER NOT NULL,
+    "status" "PaymentStatus" NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Payment_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "Account_providerId_providerAccountId_key" ON "Account"("providerId", "providerAccountId");
 
@@ -139,22 +167,16 @@ CREATE UNIQUE INDEX "VerificationRequest_identifier_token_key" ON "VerificationR
 CREATE UNIQUE INDEX "AiTool_toolURL_key" ON "AiTool"("toolURL");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "NewsletterSubscription_userId_key" ON "NewsletterSubscription"("userId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "NewsletterSubscription_email_key" ON "NewsletterSubscription"("email");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Category_name_key" ON "Category"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Payment_paymentId_key" ON "Payment"("paymentId");
 
 -- AddForeignKey
 ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "User" ADD CONSTRAINT "User_newsletterSubscriptionId_fkey" FOREIGN KEY ("newsletterSubscriptionId") REFERENCES "NewsletterSubscription"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "AiTool" ADD CONSTRAINT "AiTool_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -164,3 +186,18 @@ ALTER TABLE "Bookmark" ADD CONSTRAINT "Bookmark_userId_fkey" FOREIGN KEY ("userI
 
 -- AddForeignKey
 ALTER TABLE "Bookmark" ADD CONSTRAINT "Bookmark_toolId_fkey" FOREIGN KEY ("toolId") REFERENCES "AiTool"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Review" ADD CONSTRAINT "Review_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Review" ADD CONSTRAINT "Review_toolId_fkey" FOREIGN KEY ("toolId") REFERENCES "AiTool"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ReviewLike" ADD CONSTRAINT "ReviewLike_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ReviewLike" ADD CONSTRAINT "ReviewLike_reviewId_fkey" FOREIGN KEY ("reviewId") REFERENCES "Review"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Payment" ADD CONSTRAINT "Payment_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
