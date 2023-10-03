@@ -35,23 +35,24 @@ model Session {
 }
 
 model User {
-  id            String         @id @default(cuid())
-  name          String?
-  email         String?        @unique
-  emailVerified DateTime?
-  role          UserRole       @default(USER)
-  image         String?
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  accounts      Account[]
-  sessions      Session[]
-  aiTools       AiTool[]
-  bookmarks     Bookmark[]
-  review        Review[]
-  reviewLike    ReviewLike[]
-  payment       Payment[]
-  News          News[]
-  ReviewUnlike  ReviewUnlike[]
+  id             String           @id @default(cuid())
+  name           String?
+  email          String?          @unique
+  emailVerified  DateTime?
+  role           UserRole         @default(USER)
+  image          String?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  accounts       Account[]
+  sessions       Session[]
+  aiTools        AiTool[]
+  review         Review[]
+  reviewLike     ReviewLike[]
+  payment        Payment[]
+  News           News[]
+  ReviewUnlike   ReviewUnlike[]
+  AiTollBookmark AiToolBookmark[]
+  NewsBookmark   NewsBookmark[]
 }
 
 model VerificationRequest {
@@ -66,39 +67,50 @@ model VerificationRequest {
 }
 
 model AiTool {
-  id               String        @id @default(cuid())
-  title            String
-  toolDescription  String
-  shortDescription String
-  useCase1         String
-  useCase2         String
-  useCase3         String
-  price            Int
-  pricePlan        PriceFormat
-  pricing          PricingFormat
-  toolURL          String        @unique
-  toolFeature      String
-  views            Int           @default(0)
-  toolTags         String[]
-  toolScreenshot   String
-  createdAt        DateTime      @default(now())
-  updatedAt        DateTime      @updatedAt
-  user             User          @relation(fields: [userId], references: [id])
-  userId           String
-  category         String
-  subcategories    String
-  bookmarks        Bookmark[]
-  reviews          Review[]
+  id                  String           @id @default(cuid())
+  title               String
+  toolDescription     String
+  shortDescription    String
+  useCase1            String
+  useCase2            String
+  useCase3            String
+  price               Int
+  pricePlan           PriceFormat
+  pricing             PricingFormat
+  toolURL             String           @unique
+  toolFeature         String
+  views               Int              @default(0)
+  aiToolBookmarkCount Int              @default(0)
+  toolTags            String[]
+  toolScreenshot      String
+  createdAt           DateTime         @default(now())
+  updatedAt           DateTime         @updatedAt
+  user                User             @relation(fields: [userId], references: [id])
+  userId              String
+  category            String
+  subcategories       String
+  reviews             Review[]
+  AiTollBookmark      AiToolBookmark[]
 }
 
-model Bookmark {
+model AiToolBookmark {
   id        String   @id @default(cuid())
   userId    String
+  user      User     @relation(fields: [userId], references: [id])
   toolId    String
+  tool      AiTool   @relation(fields: [toolId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id])
-  tool      AiTool   @relation(fields: [toolId], references: [id])
+}
+
+model NewsBookmark {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  newsId     String
+  news       News     @relation(fields: [newsId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 model Category {
@@ -158,14 +170,16 @@ model Payment {
 }
 
 model News {
-  id        String   @id @default(cuid())
-  title     String
-  url       String
-  views     Int      @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
+  id                String         @id @default(cuid())
+  title             String
+  url               String
+  views             Int            @default(0)
+  newsBookmarkCount Int            @default(0)
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  userId            String
+  user              User           @relation(fields: [userId], references: [id])
+  NewsBookmark      NewsBookmark[]
 }
 
 enum PaymentStatus {
