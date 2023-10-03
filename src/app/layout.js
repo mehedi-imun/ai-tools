@@ -1,3 +1,4 @@
+import AuthProvider from "@/components/Providers/AuthProvider";
 import "./globals.css";
 import Providers from "@/components/Providers/Providers";
 
@@ -11,7 +12,9 @@ export default function RootLayout({ children }) {
     <html lang="en" data-theme="light">
       <body>
         <Providers>
+        <AuthProvider>
           <main className="min-h-screen w-[90%] mx-auto py-5">{children}</main>
+          </AuthProvider>
         </Providers>
       </body>
     </html>
