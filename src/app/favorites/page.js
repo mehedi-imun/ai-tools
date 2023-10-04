@@ -1,20 +1,30 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 const FavoritesPage = () => {
   const [activeTab, setActiveTab] = useState("tab1");
   const handleTabClick = (tabId) => {
     setActiveTab(tabId);
   };
- 
+
   return (
     <div className=" px-2 mt-6">
-      
-      <div >
-      <h1 className="text-3xl font-semibold" >Your AI Favorites.</h1>
-      <p className="pt-2">
-        These are the tools and posts you have favourited. You can remove them
-        from your favourites by clicking the bookmark icon.
-      </p>
+      <div className="text-sm breadcrumbs">
+        <ul>
+          <li>
+            <a>Home</a>
+          </li>
+          <li>
+            <a>Documents</a>
+          </li>
+          <li>Add Document</li>
+        </ul>
+      </div>
+      <div>
+        <h1 className="text-3xl font-semibold">Your AI Favorites.</h1>
+        <p className="pt-2">
+          These are the tools and posts you have favourited. You can remove them
+          from your favourites by clicking the bookmark icon.
+        </p>
       </div>
 
       <div className="mt-24">
@@ -28,7 +38,7 @@ const FavoritesPage = () => {
             }`}
             onClick={() => handleTabClick("tab1")}
           >
-           AI TOOLS
+            AI TOOLS
           </a>
           <a
             id="tab2"
@@ -39,7 +49,7 @@ const FavoritesPage = () => {
             }`}
             onClick={() => handleTabClick("tab2")}
           >
-           AI NEWS
+            AI NEWS
           </a>
           <a
             id="tab3"
@@ -50,7 +60,7 @@ const FavoritesPage = () => {
             }`}
             onClick={() => handleTabClick("tab3")}
           >
-           AI PLUGINS
+            AI PLUGINS
           </a>
         </div>
         <div className="tabs_content">
@@ -58,21 +68,19 @@ const FavoritesPage = () => {
             id="tab1_content"
             style={{ display: activeTab === "tab1" ? "block" : "none" }}
           >
-            <div>
-            No ai Tools Favorited Yet.
-            </div>
+            <div>No ai Tools Favorited Yet.</div>
           </div>
           <div
             id="tab2_content"
             style={{ display: activeTab === "tab2" ? "block" : "none" }}
           >
-          No News Favourited Yet
+            No News Favourited Yet
           </div>
           <div
             id="tab3_content"
             style={{ display: activeTab === "tab3" ? "block" : "none" }}
           >
-        No Plugins Favourited Yet
+            No Plugins Favourited Yet
           </div>
         </div>
       </div>
