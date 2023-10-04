@@ -21,7 +21,7 @@ export const ThemeChanger = () => {
         {/* sun icon */}
         <svg
           onClick={() => setTheme("dark")}
-          className="swap-on fill-current w-8 h-8"
+          className="swap-on fill-current w-6 h-6"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
         >
@@ -31,7 +31,7 @@ export const ThemeChanger = () => {
         {/* moon icon */}
         <svg
           onClick={() => setTheme("light")}
-          className="swap-off fill-current w-8 h-8"
+          className="swap-off fill-current w-6 h-6"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
         >
