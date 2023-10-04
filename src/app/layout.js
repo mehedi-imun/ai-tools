@@ -11,12 +11,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="light">
       <body>
-      <AuthProvider>
-        <Providers>
-       
-          <main className="min-h-screen w-[90%] mx-auto py-5">{children}</main>
-          
-        </Providers>
+        <AuthProvider>
+          <Providers>
+            <main className="min-h-screen mx-auto py-5 max-w-[1280px]">
+              {children}
+            </main>
+          </Providers>
         </AuthProvider>
       </body>
     </html>
