@@ -8,8 +8,8 @@ const Navbar = () => {
   const { theme } = useTheme();
   const { status, data } = useSession();
   return (
-    <div className="border-b h-18 bg-base-100 sticky top-0 left-0 right-0 z-10">
-      <div className="navbar max-w-[1280px] mx-auto ">
+    <div className="border-b h-18 bg-base-100 sticky top-0 left-0 right-0 z-50">
+      <div className="navbar p-0 max-w-[1180px] mx-auto ">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -150,7 +150,7 @@ const Navbar = () => {
               <a>Subscribe</a>
             </li>
             <li>
-              <a>Contact</a>
+              <Link href="/contact">Contact</Link>
             </li>
           </ul>
         </div>

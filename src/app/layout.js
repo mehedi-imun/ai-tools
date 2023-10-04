@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
       <body>
         <AuthProvider>
           <Providers>
-            <main className="min-h-screen mx-auto py-5 max-w-[1280px]">
+            <main className="min-h-screen mx-auto py-5 max-w-[1180px]">
               {children}
             </main>
           </Providers>
