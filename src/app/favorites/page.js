@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useState } from "react";
 const FavoritesPage = () => {
   const [activeTab, setActiveTab] = useState("tab1");
@@ -68,19 +69,49 @@ const FavoritesPage = () => {
             id="tab1_content"
             style={{ display: activeTab === "tab1" ? "block" : "none" }}
           >
-            <div>No ai Tools Favorited Yet.</div>
+             <div>No ai Tools Favorited Yet.</div>
+           <div className="flex justify-center items-center">
+          
+            <Image
+           
+              loading="lazy"
+              width={600}
+              height={0}
+              src="/assets/favorite.png"
+            ></Image>
           </div>
+           </div>
           <div
             id="tab2_content"
             style={{ display: activeTab === "tab2" ? "block" : "none" }}
           >
             No News Favourited Yet
+            <div className="flex justify-center items-center">
+          
+          <Image
+         
+            loading="lazy"
+            width={600}
+            height={0}
+            src="/assets/favorite.png"
+          ></Image>
+        </div>
           </div>
           <div
             id="tab3_content"
             style={{ display: activeTab === "tab3" ? "block" : "none" }}
           >
             No Plugins Favourited Yet
+            <div className="flex justify-center items-center">
+          
+          <Image
+         
+            loading="lazy"
+            width={600}
+            height={0}
+            src="/assets/favorite.png"
+          ></Image>
+        </div>
           </div>
         </div>
       </div>
