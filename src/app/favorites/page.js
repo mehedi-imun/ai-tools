@@ -9,17 +9,6 @@ const FavoritesPage = () => {
 
   return (
     <div className=" px-2 mt-6">
-      <div className="text-sm breadcrumbs">
-        <ul>
-          <li>
-            <a>Home</a>
-          </li>
-          <li>
-            <a>Documents</a>
-          </li>
-          <li>Add Document</li>
-        </ul>
-      </div>
       <div>
         <h1 className="text-3xl font-semibold">Your AI Favorites.</h1>
         <p className="pt-2">
@@ -69,49 +58,45 @@ const FavoritesPage = () => {
             id="tab1_content"
             style={{ display: activeTab === "tab1" ? "block" : "none" }}
           >
-             <div>No ai Tools Favorited Yet.</div>
-           <div className="flex justify-center items-center">
-          
-            <Image
-           
-              loading="lazy"
-              width={600}
-              height={0}
-              src="/assets/favorite.png"
-            ></Image>
+            <h3 className="text-center text-2xl mt-6">No ai Tools Favorited Yet.</h3>
+            <div className="flex justify-center items-center">
+              <Image
+                loading="lazy"
+                width={500}
+                height={0}
+                src="/assets/favorite.png"
+              ></Image>
+            </div>
           </div>
-           </div>
           <div
             id="tab2_content"
             style={{ display: activeTab === "tab2" ? "block" : "none" }}
           >
-            No News Favourited Yet
+            <h3 className="text-center text-2xl mt-6"> No News Favourited Yet</h3>
+           
             <div className="flex justify-center items-center">
-          
-          <Image
-         
-            loading="lazy"
-            width={600}
-            height={0}
-            src="/assets/favorite.png"
-          ></Image>
-        </div>
+              <Image
+                loading="lazy"
+                width={500}
+                height={0}
+                src="/assets/favorite.png"
+              ></Image>
+            </div>
           </div>
           <div
             id="tab3_content"
             style={{ display: activeTab === "tab3" ? "block" : "none" }}
           >
-            No Plugins Favourited Yet
-            <div className="flex justify-center items-center">
-          
-          <Image
          
-            loading="lazy"
-            width={600}
-            height={0}
-            src="/assets/favorite.png"
-          ></Image>
-        </div>
+            <h3 className="text-center text-2xl mt-6">   No Plugins Favourited Yet</h3>
+            <div className="flex justify-center items-center">
+              <Image
+                loading="lazy"
+                width={500}
+                height={0}
+                src="/assets/favorite.png"
+              ></Image>
+            </div>
           </div>
         </div>
       </div>

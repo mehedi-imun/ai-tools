@@ -5,11 +5,12 @@ import { BsBookmarkPlus,BsStars } from "react-icons/bs";
 import { BiSolidLockOpen} from "react-icons/bi";
 import { SlShareAlt} from "react-icons/sl";
 import { Rating } from "react-simple-star-rating";
+import Link from "next/link";
 const AiCard = () => {
   return (
     <div>
-      <div className="card  bg-base-100  rounded relative border border-[#b318ff] ">
-        <div className=" bg-[#b318ff]  rounded-l-sm p-2 absolute z-10 top-2 right-0 text-white">
+      <div className="card  shadow  rounded relative border ">
+        <div className=" bg-[#f8f8f8c7]  rounded-l-sm p-2 absolute z-10 top-2 right-0 text-black font-bold">
           $99/M
         </div>
 
@@ -57,8 +58,8 @@ const AiCard = () => {
             <div className=" flex justify-center items-center text-2xl cursor-pointer tooltip tooltip-info" data-tip="ai tool"><BsStars/></div>
           </div>
           <div className="flex space-x-2 my-4" >
-            <span className=" btn-link"> #aiTool</span>
-            <span className=" btn-link">   #extension</span>
+            <Link href='/' className="hover:underline hover:text-primary" > #aiTool</Link>
+            <Link href='/' className="hover:underline hover:text-primary"  > #extension</Link>
           </div>
           <div className=" flex overflow-hidden justify-between">
             <button className="btn btn-outline border-[#b318ff] text-2xl px-12">

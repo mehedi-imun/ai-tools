@@ -66,7 +66,7 @@ model VerificationToken {
 
 model AiTool {
   id                  String           @id @default(cuid())
-  title               String
+  title               String 
   toolDescription     String
   shortDescription    String
   useCase1            String

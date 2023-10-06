@@ -1,6 +1,7 @@
 import AuthProvider from "@/components/Providers/AuthProvider";
 import Providers from "@/components/Providers/Providers";
 import "./globals.css";
+import NextBreadcrumb from "@/components/Shared/BreadCrumb";
 
 export const metadata = {
   title: "AI Tools",
@@ -10,15 +11,26 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="light">
+      
       <body>
+        
         <AuthProvider>
           <Providers>
-            <main className="min-h-screen mx-auto py-5 max-w-[1180px]">
+            <main className="min-h-screen  py-5 max-w-[1180px] mx-auto">
+            <NextBreadcrumb
+          homeElement={'Home'}
+          separator={<span> {">"} </span>}
+          activeClasses='font-bold'
+          containerClasses='text-sm breadcrumbs flex' 
+          listClasses='hover:underline mx-2 '
+          capitalizeLinks
+        />
               {children}
             </main>
           </Providers>
         </AuthProvider>
       </body>
+      
     </html>
   );
 }
