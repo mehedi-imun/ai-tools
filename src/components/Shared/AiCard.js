@@ -29,7 +29,7 @@ const AiCard = () => {
                 className="tooltip tooltip-info cursor-pointer z-20"
                 data-tip="This tool is verified because it is either an established company or has good social media presence."
               >
-                <VscVerified className="text-[#b318ff] text-2xl " />
+                <VscVerified className="text-secondary text-2xl " />
               </div>
             </div>
             <div
