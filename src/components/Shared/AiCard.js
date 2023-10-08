@@ -37,6 +37,7 @@ const AiCard = () => {
               data-tip="233 people favourited this tool"
             >
               {" "}
+              
               <BsBookmarkPlus className="text-gray-600 mx-2 text-xl tooltip" />
               <span>105400</span>
             </div>
@@ -58,14 +59,14 @@ const AiCard = () => {
             <div className=" flex justify-center items-center text-2xl cursor-pointer tooltip tooltip-info" data-tip="ai tool"><BsStars/></div>
           </div>
           <div className="flex space-x-2 my-4" >
-            <Link href='/' className="hover:underline hover:text-primary" > #aiTool</Link>
+            <Link href='https://9432604211760.gumroad.com/l/demo' className="hover:underline hover:text-primary" > #aiTool</Link>
             <Link href='/' className="hover:underline hover:text-primary"  > #extension</Link>
           </div>
           <div className=" flex overflow-hidden justify-between">
-            <button className="btn btn-outline border-[#b318ff] text-2xl px-12">
+            <button className="btn btn-outline border-[#B318FF] text-2xl px-12">
               <BsBookmarkPlus/>
             </button>
-            <button className="btn btn-neutral  no-animation bg-[#b318ff] text-2xl px-12"><SlShareAlt/></button>
+            <button className="btn btn-neutral border-0  no-animation bg-[#B318FF] text-2xl px-12"><SlShareAlt/></button>
           </div>
         </div>
       </div>

@@ -38,7 +38,8 @@ export const pick = (obj, keys) => {
     'popular',
     'toolsAddedToday',
     'category',
-    'subcategories'
+    'subcategories',
+    'status'
     
   ];
   export const toolSearchableFields = [
