@@ -25,7 +25,7 @@ export async function GET(req, res){
   const filters = pick(query, toolsFilterableFields);
   const options = pick(query, ['limit', 'page', 'sortBy', 'sortOrder']);
   const { limit, page, skip } = calculatePagination(options);
-  const { searchTerm,pricing, ...filterData } = filters;
+  const { searchTerm,pricing,status, ...filterData } = filters;
   const andConditions = [];
   
  if (searchTerm) {
@@ -62,6 +62,17 @@ let orderBy = {};
   } else {
     orderBy = options.sortBy && options.sortOrder ? { [options.sortBy]: options.sortOrder } : { createdAt: 'desc' };
   }
+  // Add a condition to filter by toolStatus "PUBLISHED"
+  if (status) {
+    andConditions.push({
+      status: status,
+    });
+  }else{
+    andConditions.push({
+      status: 'PUBLISHED',
+    });
+  }
+ 
   
 const whereConditions = andConditions.length > 0 ? { OR: andConditions } : {};
 try {

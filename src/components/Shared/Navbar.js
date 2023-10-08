@@ -147,7 +147,7 @@ const Navbar = () => {
               </ul>
             </li>
             <li>
-              <a>Subscribe</a>
+              <Link href='/subscribe'>Subscribe</Link>
             </li>
             <li>
               <Link href="/contact">Contact</Link>
