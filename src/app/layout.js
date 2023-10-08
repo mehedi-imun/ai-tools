@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
         
         <AuthProvider>
           <Providers>
-            <main className="min-h-screen  py-5 max-w-[1180px] mx-auto">
+            <main className="min-h-screen   max-w-[1180px] mx-auto">
             <NextBreadcrumb
           homeElement={'Home'}
           separator={<span> {">"} </span>}

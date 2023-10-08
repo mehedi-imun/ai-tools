@@ -63,10 +63,10 @@ const AiCard = () => {
             <Link href='/' className="hover:underline hover:text-primary"  > #extension</Link>
           </div>
           <div className=" flex overflow-hidden justify-between">
-            <button className="btn btn-outline border-[#B318FF] text-2xl px-12">
+            <button className="btn btn-outline border-[#FD03CD] text-2xl px-12">
               <BsBookmarkPlus/>
             </button>
-            <button className="btn btn-neutral border-0  no-animation bg-[#B318FF] text-2xl px-12"><SlShareAlt/></button>
+            <button className="btn btn-neutral border-0  no-animation bg-[#FD03CD] text-2xl px-12"><SlShareAlt/></button>
           </div>
         </div>
       </div>
