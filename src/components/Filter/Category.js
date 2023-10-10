@@ -1,7 +1,7 @@
 "use client"
-import React, { useState } from "react";
-import { AiOutlineArrowRight,AiOutlineArrowLeft } from "react-icons/ai";
-const Category = () => {
+import { useState } from "react";
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
+const CategoryCarousel = () => {
   const categories = [
     "Category 1",
     "Catry 2",
@@ -44,7 +44,7 @@ const Category = () => {
         {visibleCategories.map((category, index) => (
           <div
             key={index}
-            className="btn btn-sm "
+            className="btn btn-sm rounded-full"
           >
             {category}
           </div>
@@ -61,4 +61,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default CategoryCarousel;

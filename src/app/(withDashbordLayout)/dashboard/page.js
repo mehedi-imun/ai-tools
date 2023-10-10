@@ -3,7 +3,7 @@ import Image from "next/image";
 const Dashboard = () => {
   return (
     <div>
-      <div className="card w-full bg-[#b318ff] border ">
+      <div className="card w-full bg-secondary border ">
         <div className="card-body text-white  ">
           <div className="lg:flex justify-between ">
             <h1 className="lg:mb-0 mb-2">Welcome back mehedi imun...!</h1>

@@ -1,8 +1,9 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 import { BiSolidDownArrow } from "react-icons/bi";
 import { HiFilter } from "react-icons/hi";
-import Category from "./Category";
+import CategoryCarousel from "./Category";
 const Filter = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState([]);
@@ -90,7 +91,7 @@ const Filter = () => {
     <div className="mb-12">
       <div className="flex items-center space-x-2 ">
         <div className="form-control w-full mb-4">
-          <div className="input-group input focus:outline-none border-gray-300 ">
+          <div className="input-group bg-transparent input focus:outline-none border-gray-300 ">
             <input
               value={searchQuery}
               onChange={handleInputChange}
@@ -98,7 +99,7 @@ const Filter = () => {
               name="searchTerm"
               type="text"
               placeholder="Search ai tools…"
-              className="w-full p-2"
+              className="w-full  p-2"
             />
             <button
               onClick={handleSearchButtonClick}
@@ -124,7 +125,7 @@ const Filter = () => {
       </div>
       <div className="flex justify-between">
         <button
-          className="btn lg:px-12  bg-transparent border-gray-300 relative"
+          className="btn lg:px-12  bg-transparent border-gray-300 relative rounded-full"
           onClick={openModal}
         >
           Filter
@@ -135,9 +136,9 @@ const Filter = () => {
           )}
           <HiFilter className="text-2xl" />
         </button>
-        <Category></Category>
+        <CategoryCarousel></CategoryCarousel>
         <div className="relative">
-          <button className="btn lg:px-12 " onClick={() => toggleDropdown()}>
+          <button className="btn lg:px-12 rounded-full " onClick={() => toggleDropdown()}>
             Sort by: {selectedSortOption} <BiSolidDownArrow />
           </button>
           {isDropdownOpen && (
@@ -230,12 +231,12 @@ const Filter = () => {
             </div>
 
             <div className="mt-6 flex justify-between space-x-6">
-              <button onClick={clearFilters} className="btn btn-wide">
+              <button onClick={clearFilters} className="btn btn-wide rounded-full">
                 Clear
               </button>
               <button
                 onClick={applyFilters}
-                className="btn  btn-secondary btn-wide"
+                className="btn  btn-secondary btn-wide rounded-full"
               >
                 Apply Filters
               </button>
@@ -243,6 +244,9 @@ const Filter = () => {
           </div>
         </div>
       )}
+      <div className="flex justify-center">
+        <Link href="/ai-tools" className="hover:underline my-3 ">VIEW ALL AI CATEGORIES</Link>
+      </div>
     </div>
   );
 };
