@@ -1,11 +1,15 @@
 "use client";
-import React, { useState } from "react";
-
+import Link from "next/link";
+import { useState } from "react";
+import { BiSolidDownArrow } from "react-icons/bi";
+import { HiFilter } from "react-icons/hi";
+import CategoryCarousel from "./Category";
 const Filter = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-
+  const [selectedSortOption, setSelectedSortOption] = useState(""); // Default sorting option
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const openModal = () => {
     setIsOpen(true);
   };
@@ -47,12 +51,15 @@ const Filter = () => {
 
   const applyFilters = () => {
     const queryParams = [];
-
+    closeModal();
     if (selectedFilters.length > 0) {
       queryParams.push(`pricing=${selectedFilters.join("&pricing=")}`);
     }
     if (searchQuery) {
       queryParams.push(`searchTerm=${searchQuery}`);
+    }
+    if (selectedSortOption) {
+      queryParams.push(`sortBy=${selectedSortOption}`);
     }
     const apiUrl = `/api/tools${
       queryParams.length > 0 ? `?${queryParams.join("&")}` : ""
@@ -65,35 +72,116 @@ const Filter = () => {
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter" && event.target.name === "searchTerm") {
-      // Trigger the search action when Enter is pressed for the searchTerm input field
       applyFilters();
     }
   };
-  return (
-    <div>
-      <div className="flex items-center space-x-2">
-        <input
-          type="text"
-          placeholder="Type here"
-          className="input input-bordered w-full max-w-xs"
-          name="searchTerm"
-          value={searchQuery}
-          onChange={handleInputChange}
-          onKeyPress={handleKeyPress}
-        />
-      </div>
-      <button className="btn btn-outline" onClick={openModal}>
-        Filter
-      </button>
+  const handleSearchButtonClick = () => {
+    applyFilters();
+  };
 
+  const handleSortOptionClick = (option) => {
+    setSelectedSortOption(option);
+    applyFilters();
+    setIsDropdownOpen(false);
+  };
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+  return (
+    <div className="mb-12">
+      <div className="flex items-center space-x-2 ">
+        <div className="form-control w-full mb-4">
+          <div className="input-group bg-transparent input focus:outline-none border-gray-300 ">
+            <input
+              value={searchQuery}
+              onChange={handleInputChange}
+              onKeyPress={handleKeyPress}
+              name="searchTerm"
+              type="text"
+              placeholder="Search ai tools…"
+              className="w-full  p-2"
+            />
+            <button
+              onClick={handleSearchButtonClick}
+              className="p-2 hover:bg-gray-100 rounded-full"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="flex justify-between">
+        <button
+          className="btn lg:px-12  bg-transparent border-gray-300 relative rounded-full"
+          onClick={openModal}
+        >
+          Filter
+          {selectedFilters.length > 0 && (
+            <div className="badge badge-secondary badge-sm text-white absolute z-10 top-[-10px] right-[-10px]">
+              {selectedFilters ? selectedFilters?.length : ""}
+            </div>
+          )}
+          <HiFilter className="text-2xl" />
+        </button>
+        <CategoryCarousel></CategoryCarousel>
+        <div className="relative">
+          <button className="btn lg:px-12 rounded-full " onClick={() => toggleDropdown()}>
+            Sort by: {selectedSortOption} <BiSolidDownArrow />
+          </button>
+          {isDropdownOpen && (
+            <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-36 absolute">
+              <li>
+                <button
+                  className="w-full"
+                  onClick={() => handleSortOptionClick("Verified")}
+                >
+                  Verified
+                </button>
+              </li>
+              <li>
+                <button
+                  className="w-full"
+                  onClick={() => handleSortOptionClick("New")}
+                >
+                  New
+                </button>
+              </li>
+              <li>
+                <button
+                  className="w-full"
+                  onClick={() => handleSortOptionClick("Popular")}
+                >
+                  Popular
+                </button>
+              </li>
+            </ul>
+          )}
+        </div>
+      </div>
+      {selectedFilters.length > 0 && (
+        <button onClick={() => clearFilters()}>clear filter</button>
+      )}
       {isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
+        <div className="fixed inset-0 flex items-center justify-center z-50 ">
           <div
             className="fixed inset-0 bg-black opacity-30"
             onClick={closeModal}
           ></div>
           <div className="bg-white px-12 py-6 rounded-lg shadow-lg z-10">
-            <h2 className="text-sm font-semibold mb-6">
+            <h2 className="text-sm font-semibold mb-6 ">
               Select Filters to Apply
             </h2>
 
@@ -143,12 +231,12 @@ const Filter = () => {
             </div>
 
             <div className="mt-6 flex justify-between space-x-6">
-              <button onClick={clearFilters} className="btn btn-wide">
+              <button onClick={clearFilters} className="btn btn-wide rounded-full">
                 Clear
               </button>
               <button
                 onClick={applyFilters}
-                className="btn btn-secondary btn-wide"
+                className="btn  btn-secondary btn-wide rounded-full"
               >
                 Apply Filters
               </button>
@@ -156,6 +244,9 @@ const Filter = () => {
           </div>
         </div>
       )}
+      <div className="flex justify-center">
+        <Link href="/ai-tools" className="hover:underline my-3 ">VIEW ALL AI CATEGORIES</Link>
+      </div>
     </div>
   );
 };
