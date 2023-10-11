@@ -1,10 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import { CgProfile } from "react-icons/cg";
-import { LiaToolsSolid,LiaToolboxSolid } from "react-icons/lia";
-import { BiBookmarkHeart} from "react-icons/bi";
-import { MdManageAccounts} from "react-icons/md";
-import { SiRetool} from "react-icons/si";
+import { LiaToolsSolid, LiaToolboxSolid } from "react-icons/lia";
+import { BiBookmarkHeart } from "react-icons/bi";
+import { MdManageAccounts } from "react-icons/md";
+import { SiRetool } from "react-icons/si";
+import Link from "next/link";
 const Sidebar = ({ children }) => {
   const [toggle, setToggle] = useState(true);
   return (
@@ -12,89 +13,79 @@ const Sidebar = ({ children }) => {
       <div className={toggle ? "visible basis-1/5 border  shadow" : "hidden"}>
         <ul className="menu  p-2">
           <li>
-            <a>
-             <CgProfile className="text-2xl"/>
+            <Link href="/dashboard">
+              <CgProfile className="text-2xl" />
               Profile
-            </a>
+            </Link>
           </li>
           <li>
-            <a>
-        
-            <LiaToolsSolid className="text-2xl"/>
-            submit Tool
-            </a>
+            <Link href="/dashboard/submit-tool">
+              <LiaToolsSolid className="text-2xl" />
+              Submit Tool
+            </Link>
           </li>
-       
+
           <li>
-            <a>
-            <LiaToolboxSolid className="text-2xl"/>
-              My ai tool
-            </a>
+            <Link href="/dashboard/my-ai-tool">
+              <LiaToolboxSolid className="text-2xl" />
+              My Ai Tool
+            </Link>
           </li>
-         
+
           <li>
-            <a>
- 
-            <BiBookmarkHeart className="text-2xl"/>
+            <Link href="/favorites">
+              <BiBookmarkHeart className="text-2xl" />
               My Favorites
-            </a>
+            </Link>
           </li>
           <li>
-            <a>
-            <SiRetool className="text-xl"/>
-              manage tool
-            </a>
+            <Link href="/dashboard/manage-tools">
+              <SiRetool className="text-xl" />
+              Manage Tools
+            </Link>
           </li>
           <li>
-            <a>
-            <MdManageAccounts className="text-2xl"/>
-              manage user
-            </a>
+            <Link href="/dashboard/manage-users">
+              <MdManageAccounts className="text-2xl" />
+              Manage Users
+            </Link>
           </li>
         </ul>
       </div>
 
       <div className={toggle ? "hidden" : "visible basis-1/8 border "}>
-      <ul className="menu  p-2">
+        <ul className="menu  p-2">
           <li>
-            <a>
-             <CgProfile className="text-2xl"/>
-              
-            </a>
+            <Link href="/dashboard">
+              <CgProfile className="text-2xl" />
+            </Link>
           </li>
           <li>
-            <a>
-        
-            <LiaToolsSolid className="text-2xl"/>
-           
-            </a>
+            <Link href="/dashboard/submit-tool">
+              <LiaToolsSolid className="text-2xl" />
+            </Link>
           </li>
-       
+
           <li>
-            <a>
-            <LiaToolboxSolid className="text-2xl"/>
-            
-            </a>
+            <Link href="/dashboard/my-ai-tool">
+              <LiaToolboxSolid className="text-2xl" />
+            </Link>
           </li>
-         
+
           <li>
-            <a>
- 
-            <BiBookmarkHeart className="text-2xl"/>
-              
-            </a>
+            <Link href="/dashboard/my-favorites">
+              <BiBookmarkHeart className="text-2xl" />
+            </Link>
           </li>
           <li>
-            <a>
-            <SiRetool className="text-xl"/>
-             
-            </a>
+            <Link href="/dashboard/manage-tools">
+              <SiRetool className="text-xl" />
+            </Link>
           </li>
           <li>
-            <a>
-            <MdManageAccounts className="text-2xl"/>
-             
-            </a>
+            <Link href="/dashboard/manage-users">
+              <MdManageAccounts className="text-2xl" />
+            </Link>
           </li>
         </ul>
       </div>

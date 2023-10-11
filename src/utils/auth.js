@@ -18,7 +18,7 @@ export const authOptions = {
       }
       return session;
     },
-}
+  },
 };
 
 export const getAuthSession = () => getServerSession(authOptions);

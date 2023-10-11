@@ -116,10 +116,10 @@ const Navbar = () => {
               <label tabIndex={0}>Submit</label>
               <ul
                 tabIndex={0}
-                className="dropdown-content z-[1] menu p-2 shadow bg-base-100 text-md w-36"
+                className="dropdown-content z-[1] menu p-2 shadow bg-base-100 text-md w-40"
               >
                 <li>
-                  <a>Submit Tool</a>
+                  <Link href="/dashboard/submit-tool">Submit Tool</Link>
                 </li>
               </ul>
             </li>
@@ -147,7 +147,7 @@ const Navbar = () => {
               </ul>
             </li>
             <li>
-              <Link href='/subscribe'>Subscribe</Link>
+              <Link href="/subscribe">Subscribe</Link>
             </li>
             <li>
               <Link href="/contact">Contact</Link>
@@ -156,48 +156,59 @@ const Navbar = () => {
         </div>
         <div className="navbar-end">
           <ThemeChanger />
-          
-{status === "loading" ? <span className="loading loading-ring loading-lg"></span>:<>
-{status === "unauthenticated" ? (
-            <div
-              className="flex justify-center items-center cursor-pointer"
-              onClick={() => signIn("google")}
-            >
-              <div className="w-8 ">
-                <img src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png" />
-              </div>
-              Login
-            </div>
+
+          {status === "loading" ? (
+            <span className="loading loading-ring loading-lg"></span>
           ) : (
             <>
-              <div className="dropdown dropdown-end">
-                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                  <div className="w-10 rounded-full">
-                    <img src={data?.user?.image} />
-                  </div>
-                </label>
-                <ul
-                  tabIndex={0}
-                  className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              {status === "unauthenticated" ? (
+                <div
+                  className="flex justify-center items-center cursor-pointer"
+                  onClick={() =>
+                    signIn("google", {
+                      callbackUrl: "/",
+                    })
+                  }
                 >
-                  <li>
-                    <Link href="/dashboard" className="justify-between ">
-                      Dashboard
-                    </Link>
-                  </li>
-                  <li>
-                    <a className="">Settings</a>
-                  </li>
-                  <li>
-                    <button className="" onClick={signOut}>
-                      Logout
-                    </button>
-                  </li>
-                </ul>
-              </div>
+                  <div className="w-8 ">
+                    <img
+                      src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
+                      alt=""
+                    />
+                  </div>
+                  Login
+                </div>
+              ) : (
+                <>
+                  <div className="dropdown dropdown-end">
+                    <label
+                      tabIndex={0}
+                      className="btn btn-ghost btn-circle avatar"
+                    >
+                      <div className="w-10 rounded-full">
+                        <img src={data?.user?.image} />
+                      </div>
+                    </label>
+                    <ul
+                      tabIndex={0}
+                      className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+                    >
+                      <li>
+                        <Link href="/dashboard" className="justify-between ">
+                          Dashboard
+                        </Link>
+                      </li>
+                      <li>
+                        <button className="" onClick={signOut}>
+                          Logout
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </>
+              )}
             </>
-          )}</>}
-          
+          )}
         </div>
       </div>
     </div>
