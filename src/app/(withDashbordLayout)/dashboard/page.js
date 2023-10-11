@@ -12,11 +12,11 @@ const Dashboard = () => {
               width={210}
               height={0}
               src="/assets/dashboard-service.png"
-            ></Image>
+              alt=""
+            />
           </div>
         </div>
       </div>
-      
     </div>
   );
 };
