@@ -7,7 +7,11 @@ const DashboardLayout = async ({ children }) => {
   const session = await getServerSession(authOptions);
 
   if (!session) return redirect("/api/auth/signin");
-  return <Sidebar>{children}</Sidebar>;
+  return (
+    <Sidebar>
+      <div>{children}</div>
+    </Sidebar>
+  );
 };
 
 export default DashboardLayout;

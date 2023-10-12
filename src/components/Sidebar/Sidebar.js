@@ -114,7 +114,7 @@ const Sidebar = ({ children }) => {
           </label>
           Dashboard
         </div>
-        <div className="p-5 h-[100vh]">{children}</div>
+        <div className="p-5 min-h-screen">{children}</div>
       </div>
     </div>
   );
