@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { FaDiscord, FaLinkedin,FaTwitter } from 'react-icons/fa';
 
 const Footer = () => {
@@ -7,15 +8,15 @@ const Footer = () => {
       <footer className="footer max-w-[1180px]  mx-auto py-10 justify-between  ">
         <nav>
           <header className="footer-title">ai Services</header>
-          <a className="link link-hover">Submit ai Tool</a>
+          <Link href="/dashboard/submit-tool" className="link link-hover">Submit ai Tool</Link>
           <a className="link link-hover">Update ai Tool Request</a>
           <a className="link link-hover">Request A ai Feature</a>
         </nav>
     
         <nav>
           <header className="footer-title">Company</header>
-          <a className="link link-hover">Privacy Policy</a>
-          <a className="link link-hover">Terms of Services</a>
+          <Link href="/privacyPolicy" className="link link-hover">Privacy Policy</Link>
+          <Link href="/termsAndConditions" className="link link-hover">Terms And Conditions</Link>
           <a className="link link-hover">Contact us</a>
           <a className="link link-hover">About Us</a>
         </nav>
