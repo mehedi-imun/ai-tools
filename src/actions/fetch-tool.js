@@ -1,4 +1,4 @@
-"use server";
+// "use server";
 
 export async function fetchTools(page) {
   const perPage = 24;
@@ -6,6 +6,7 @@ export async function fetchTools(page) {
   try {
     const response = await fetch(apiUrl);
     const data = await response.json();
+    console.log(data)
     return data ;
   } catch (error) {
     console.error("Error fetching data:", error);
