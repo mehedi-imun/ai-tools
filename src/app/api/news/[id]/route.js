@@ -1,6 +1,6 @@
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
-// GET SINGLE tool
+// GET SINGLE news
 export const GET = async (req, { params }) => {
     const { id } = params;
   
