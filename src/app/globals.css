@@ -48,3 +48,21 @@
   color: #fff;
     background: #01011d;
 }
+
+[data-theme='dark'],
+[data-theme='dark'] .form_field {
+  color: #fff;
+    background: #01011d;
+}
+
+[data-theme='dark'],
+[data-theme='dark'] textarea {
+  color: #fff;
+  background: #00002F;
+}
+
+[data-theme='dark'],
+[data-theme='dark'] select {
+  color: #fff;
+  background: #00002F;
+}
