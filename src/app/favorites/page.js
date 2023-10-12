@@ -2,7 +2,7 @@
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-
+import { useState } from "react";
 const FavoritesPage = () => {
   const [activeTab, setActiveTab] = useState("tab1");
   const handleTabClick = (tabId) => {
