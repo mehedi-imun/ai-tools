@@ -8,7 +8,7 @@ const Providers = ({ children, session }) => {
   // console.log(session);
   return (
     <SessionProvider session={session}>
-      <ThemeProvider>
+      <ThemeProvider themes={["pink", "red", "blue"]}>
         <Navbar />
         {children}
         <Footer />
