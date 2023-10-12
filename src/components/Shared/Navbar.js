@@ -8,7 +8,7 @@ const Navbar = () => {
   const { theme } = useTheme();
   const { status, data } = useSession();
   return (
-    <div className="border-b h-18 bg-base-100 sticky top-0 left-0 right-0 z-50">
+    <div className="border-b h-18 bg-base-100 sticky top-0 left-0 right-0 z-50 nav_bar">
       <div className="navbar p-0 max-w-[1180px] mx-auto ">
         <div className="navbar-start">
           <div className="dropdown">

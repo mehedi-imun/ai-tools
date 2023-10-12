@@ -138,7 +138,10 @@ const Filter = () => {
         </button>
         <CategoryCarousel></CategoryCarousel>
         <div className="relative">
-          <button className="btn lg:px-12 rounded-full " onClick={() => toggleDropdown()}>
+          <button
+            className="btn lg:px-12 rounded-full "
+            onClick={() => toggleDropdown()}
+          >
             Sort by: {selectedSortOption} <BiSolidDownArrow />
           </button>
           {isDropdownOpen && (
@@ -180,7 +183,7 @@ const Filter = () => {
             className="fixed inset-0 bg-black opacity-30"
             onClick={closeModal}
           ></div>
-          <div className="bg-white px-12 py-6 rounded-lg shadow-lg z-10">
+          <div className="bg-white px-12 py-6 rounded-lg shadow-lg z-10 modal_bg">
             <h2 className="text-sm font-semibold mb-6 ">
               Select Filters to Apply
             </h2>
@@ -231,7 +234,10 @@ const Filter = () => {
             </div>
 
             <div className="mt-6 flex justify-between space-x-6">
-              <button onClick={clearFilters} className="btn btn-wide rounded-full">
+              <button
+                onClick={clearFilters}
+                className="btn btn-wide rounded-full"
+              >
                 Clear
               </button>
               <button
@@ -245,7 +251,9 @@ const Filter = () => {
         </div>
       )}
       <div className="flex justify-center">
-        <Link href="/ai-tools" className="hover:underline my-3 ">VIEW ALL AI CATEGORIES</Link>
+        <Link href="/ai-tools" className="hover:underline my-3 ">
+          VIEW ALL AI CATEGORIES
+        </Link>
       </div>
     </div>
   );

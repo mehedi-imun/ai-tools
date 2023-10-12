@@ -13,7 +13,7 @@ export default async function RootLayout({ children }) {
   const session = await getServerSession(authOptions);
   return (
     <html lang="en" data-theme="light">
-      <body>
+      <body className="">
         <Providers session={session}>
           <main className="min-h-screen   max-w-[1180px] mx-auto">
             <NextBreadcrumb

@@ -13,20 +13,38 @@
 }
 
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+[data-theme='dark'],
+[data-theme='dark'] body {
+  color: #fff;
+  background: #00002F;
+}
+[data-theme='dark'],
+[data-theme='dark'] .nav_bar {
+  color: #fff;
+  background: #00002F;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+[data-theme='dark'],
+[data-theme='dark'] input {
+  color: #fff;
+  background: #00002F;
 }
-
-.tooltip {
-  --tooltip-text-color: #13132e;
+[data-theme='dark'],
+[data-theme='dark'] .btn {
+  color: #fff;
+  background: #00002F;
+}
+[data-theme='dark'],
+[data-theme='dark'] .tag_line {
+  color: #cccbcb;
+}
+[data-theme='dark'],
+[data-theme='dark'] .modal_bg {
+  color: #fff;
+    background: #00002F;
+}
+[data-theme='dark'],
+[data-theme='dark'] .dropdown-content {
+  color: #fff;
+    background: #01011d;
 }
