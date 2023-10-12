@@ -71,7 +71,7 @@ const AiCard = ({tools}) => {
           </div>
         </div>
       </div>
-      </div>) : <div className="text-xl font-bold">No beers available !! </div>}
+      </div>) : <div className="text-xl font-bold">No tools available !! </div>}
     </div>
   );
 };
