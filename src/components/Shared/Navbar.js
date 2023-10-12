@@ -36,9 +36,6 @@ const Navbar = () => {
               <li>
                 <a>Favorites</a>
               </li>
-              <li>
-                <a>Discover</a>
-              </li>
               <li className="dropdown dropdown-hover">
                 <label tabIndex={-1}>Submit</label>
                 <ul
@@ -46,10 +43,7 @@ const Navbar = () => {
                   className="dropdown-content z-[2] menu p-2 shadow bg-base-100 rounded-box w-56 text-lg font-light"
                 >
                   <li>
-                    <a>Submit Tool</a>
-                  </li>
-                  <li>
-                    <a>Sponsorship Options</a>
+                  <Link href="/dashboard/submit-tool">Submit Tool</Link>
                   </li>
                 </ul>
               </li>
@@ -60,20 +54,15 @@ const Navbar = () => {
                   className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-56 text-lg font-light"
                 >
                   <li>
-                    <a>Newsletter Issues</a>
+                  <Link href='/news'>Latest AI News</Link>
                   </li>
                   <li>
-                    <a>Latest AI News</a>
+                    <a target="_blank" href="https://discord.com/invite/CCmUHTPj">Join Discord</a>
                   </li>
                   <li>
-                    <a>Join Discord</a>
-                  </li>
-                  <li>
-                    <a>AI Conferences List</a>
-                  </li>
-                  <li>
-                    <a>Plugins List</a>
-                  </li>
+                  <a target="_blank" href="https://jackmateo.com">Blog</a>
+                </li>
+              
                 </ul>
               </li>
               <li>
@@ -130,19 +119,13 @@ const Navbar = () => {
                 className="dropdown-content z-[1] menu p-2 shadow bg-base-100 w-52 text-md "
               >
                 <li>
-                  <a>Newsletter Issues</a>
+                  <Link href='/news'>Latest AI News</Link>
                 </li>
                 <li>
-                  <a>Latest AI News</a>
+                  <a target="_blank" href="https://discord.com/invite/CCmUHTPj">Join Discord</a>
                 </li>
                 <li>
-                  <a>Join Discord</a>
-                </li>
-                <li>
-                  <a>AI Conferences List</a>
-                </li>
-                <li>
-                  <a>Plugins List</a>
+                  <a target="_blank" href="https://jackmateo.com">Blog</a>
                 </li>
               </ul>
             </li>

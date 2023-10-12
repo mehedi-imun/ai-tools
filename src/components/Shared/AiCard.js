@@ -7,6 +7,7 @@ import { SlShareAlt} from "react-icons/sl";
 import { Rating } from "react-simple-star-rating";
 import Link from "next/link";
 const AiCard = ({tools}) => {
+
   return (
     <div className="w-full grid lg:grid-cols-3 grid-cols-1  gap-12 mx-auto ">
       {tools? tools.map(tool => <div key={tool.id}  >

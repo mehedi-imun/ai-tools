@@ -3,7 +3,7 @@ import React from 'react';
 const page = () => {
     return (
         <div>
-            # Terms and Conditions for JackMateo.AI
+             Terms and Conditions for JackMateo.AI
 
 Last Updated: [Insert Date]
 
