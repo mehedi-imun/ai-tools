@@ -114,6 +114,20 @@ const SubmitToolPage = () => {
           {...register("price")}
         />
         <label className="label">
+          <span className="label-text">Price Plan</span>
+        </label>
+        <select
+          className="select select-bordered w-full"
+          {...register("pricePlan")}
+        >
+          <option disabled selected>
+            Select price plan
+          </option>
+          <option value="DOLLARS_PER_MONTH">DOLLARS_PER_MONTH</option>
+          <option value="DOLLARS_PER_YEAR">DOLLARS_PER_YEAR</option>
+          <option value="DOLLARS_PER_MINUTE">DOLLARS_PER_MINUTE</option>
+        </select>
+        <label className="label">
           <span className="label-text">Payment Model</span>
         </label>
         <select
@@ -173,6 +187,15 @@ const SubmitToolPage = () => {
           </span>
         </label>
 
+        <label className="label">
+          <span className="label-text">Subcategories</span>
+        </label>
+        <input
+          type="text"
+          placeholder="Subcategories"
+          className="input input-bordered w-full mb-5"
+          {...register("subcategories")}
+        />
         <label className="label">
           <span className="label-text">Tool Tags (Select 1)</span>
         </label>

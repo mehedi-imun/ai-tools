@@ -36,36 +36,36 @@ const Navbar = () => {
               <li>
                 <a>Favorites</a>
               </li>
-              <li className="dropdown dropdown-hover">
-                <label tabIndex={-1}>Submit</label>
+              <li>
+                <a>Submit</a>
                 <ul
                   tabIndex={-1}
-                  className="dropdown-content z-[2] menu p-2 shadow bg-base-100 rounded-box w-56 text-lg font-light"
+                  className="p-2 bg-base-100 text-lg font-light"
                 >
                   <li>
-                  <Link href="/dashboard/submit-tool">Submit Tool</Link>
+                    <Link href="/dashboard/submit-tool">Submit Tool</Link>
                   </li>
                 </ul>
               </li>
-              <li className="dropdown dropdown-hover">
-                <label tabIndex={-2}>Resources</label>
-                <ul
-                  tabIndex={-2}
-                  className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-56 text-lg font-light"
-                >
+              <li>
+                <a>Resources</a>
+                <ul className="p-2 bg-base-100 text-lg font-light">
                   <li>
-                  <Link href='/news'>Latest AI News</Link>
+                    <Link href="/news">Latest AI News</Link>
                   </li>
                   <li>
-                    <a target="_blank" href="https://discord.com/invite/CCmUHTPj">Join Discord</a>
+                    <a
+                      target="_blank"
+                      href="https://discord.com/invite/CCmUHTPj"
+                    >
+                      Join Discord
+                    </a>
                   </li>
                   <li>
-                  <a target="_blank" href="https://jackmateo.com">Blog</a>
-                </li>
-                  <li>
-                  <a target="_blank" href="https://us13.list-manage.com/contact-form?u=c8c4870109147447f0d23f027&form_id=69373552a23655e62bc5169ea2051501">Contact</a>
-                </li>
-              
+                    <a target="_blank" href="https://jackmateo.com">
+                      Blog
+                    </a>
+                  </li>
                 </ul>
               </li>
               <li>
@@ -104,33 +104,38 @@ const Navbar = () => {
             <li>
               <Link href="/favorites">Favorites</Link>
             </li>
-            <li className="dropdown dropdown-hover">
-              <label tabIndex={0}>Submit</label>
-              <ul
-                tabIndex={0}
-                className="dropdown-content z-[1] menu p-2 shadow bg-base-100 text-md w-40"
-              >
-                <li>
-                  <Link href="/dashboard/submit-tool">Submit Tool</Link>
-                </li>
-              </ul>
+            <li tabIndex={0}>
+              <details>
+                <summary>Submit</summary>
+                <ul className="p-2 shadow bg-base-100 text-md w-40">
+                  <li>
+                    <Link href="/dashboard/submit-tool">Submit Tool</Link>
+                  </li>
+                </ul>
+              </details>
             </li>
-            <li className="dropdown dropdown-hover">
-              <label tabIndex={0}>Resources</label>
-              <ul
-                tabIndex={0}
-                className="dropdown-content z-[1] menu p-2 shadow bg-base-100 w-52 text-md "
-              >
-                <li>
-                  <Link href='/news'>Latest AI News</Link>
-                </li>
-                <li>
-                  <a target="_blank" href="https://discord.com/invite/CCmUHTPj">Join Discord</a>
-                </li>
-                <li>
-                  <a target="_blank" href="https://jackmateo.com">Blog</a>
-                </li>
-              </ul>
+            <li tabIndex={0}>
+              <details>
+                <summary>Resources</summary>
+                <ul className="p-2 shadow bg-base-100 w-52 text-md ">
+                  <li>
+                    <Link href="/news">Latest AI News</Link>
+                  </li>
+                  <li>
+                    <a
+                      target="_blank"
+                      href="https://discord.com/invite/CCmUHTPj"
+                    >
+                      Join Discord
+                    </a>
+                  </li>
+                  <li>
+                    <a target="_blank" href="https://jackmateo.com">
+                      Blog
+                    </a>
+                  </li>
+                </ul>
+              </details>
             </li>
             <li>
               <Link href="/subscribe">Subscribe</Link>
