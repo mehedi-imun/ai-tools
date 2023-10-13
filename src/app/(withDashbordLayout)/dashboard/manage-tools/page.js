@@ -1,7 +1,10 @@
 "use client";
 import { useState } from "react";
+import Swal from "sweetalert2";
 const ManageToolsPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [viewToolData, setViewToolData] = useState(null);
+  const [editToolData, setEditToolData] = useState(null);
   const applyFilters = () => {
     const queryParams = [];
 
@@ -26,7 +29,61 @@ const ManageToolsPage = () => {
   const handleSearchButtonClick = () => {
     applyFilters();
   };
+  const openViewModal = (tool) => {
+    setViewToolData(tool);
+    document.getElementById('my_modal_view').showModal();
+  };
+  const openEditModal = (tool) => {
+    setEditToolData(tool)
+    document.getElementById('my_modal_edit').showModal();
 
+  };
+
+const tools = [
+  {
+    id: "123",
+    title: "hello",
+    toolDescription: "Sample description",
+    shortDescription: "Short summary",
+    useCase1: "Use case 1 description",
+    useCase2: "Use case 2 description",
+    useCase3: "Use case 3 description",
+    price: 0,
+    pricePlan: "DOLLARS_PER_MONTH",
+    pricing: "Free",
+    toolURL: "https://sample-ai-tool.com",
+    toolFeature: "Key features of the tool",
+    views: 0,
+    aiToolBookmarkCount: 0,
+    status: "PENDING",
+    toolTags: ["AI", "MachineLearning", "Sample"],
+    toolScreenshot: "https://sample-ai-tool.com/screenshot.png",
+    createdAt: "2023-10-08T14:39:04.137Z",
+    updatedAt: "2023-10-08T14:49:52.030Z",
+    userId: "123",
+    category: "ai-books",
+    subcategories: "data-science"
+  }
+]
+
+const handleUpdateStatus = (toolId)=>{
+  Swal.fire({
+    title: 'Do you want to save the changes?',
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: 'Save',
+    denyButtonText: `Don't save`,
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      console.log(toolId)
+      Swal.fire('Saved!', '', 'success')
+    } else if (result.isDenied) {
+      Swal.fire('Changes are not saved', '', 'info')
+    }
+  })
+ 
+}
   return (
     <div>
       <div className="form-control w-full mb-4">
@@ -70,14 +127,15 @@ const ManageToolsPage = () => {
               <th>Ai tool Name</th>
               <th>Tool Link</th>
               <th>status</th>
-              <th>see details</th>
               <th>updating</th>
+              <th>see details</th>
             </tr>
           </thead>
           <tbody>
             {/* row 1 */}
-            <tr>
-              <th>1</th>
+            {tools? tools.map((tool,index)=><>
+              <tr>
+              <th>{index+1}</th>
               <td>
                 <div className="flex items-center space-x-3">
                   <div className="avatar">
@@ -89,45 +147,51 @@ const ManageToolsPage = () => {
                     </div>
                   </div>
                   <div>
-                    <div className="font-bold">Hart Hagerty</div>
+                    <div className="font-bold">{tool.title}</div>
                   </div>
                 </div>
               </td>
               <td>
-                <a target="_blank" href="https://discord.com/invite/CCmUHTPj" className="badge badge-ghost badge-sm">
+                <a target="_blank" href={tool.toolURL} className="badge badge-ghost badge-sm">
                  Link 
                 </a>
               </td>
-              <td>pending</td>
+              <td>{tool.status}</td>
               <th>
-                <button className="btn btn-ghost btn-xs" onClick={()=>document.getElementById('my_modal_view').showModal()}>view</button>
+                {tool.status === 'PENDING' ? <button className="btn btn-ghost btn-xs" onClick={()=>handleUpdateStatus(tool.id)}>update status</button>:<button className="btn btn-ghost btn-xs btn-disabled" >already updated</button>}
               </th>
               <th>
-                <button className="btn btn-ghost btn-xs" onClick={()=>document.getElementById('my_modal_edit').showModal()}>Edit</button>
+                <button className="btn btn-ghost btn-xs" onClick={()=>openViewModal(tool)}>view</button>
               </th>
-            </tr>
+            
+            </tr></>):<p>not tool found</p>}
           </tbody>
         </table>
       </div>
 <dialog id="my_modal_view" className="modal">
   <div className="modal-box w-11/12 max-w-5xl" >
-    <h3 className="font-bold text-lg">Hello!</h3>
-    <p className="py-4">Press ESC key or click the button below to close</p>
+  <div className=" flex justify-center items-center">
+    <div>  <p>title:{viewToolData?.title}</p>
+      <p>category: {viewToolData?.category}</p>
+      <p>subcategory: {viewToolData?.subcategories}</p>
+      <p>Tool Description: {viewToolData?.toolDescription}</p>
+      <p>short Description: {viewToolData?.shortDescription}</p>
+      <p>useCase1: {viewToolData?.useCase1}</p>
+      <p>use Case2: {viewToolData?.useCase2}</p>
+      <p>use Case3: {viewToolData?.useCase3}</p>
+      <p>price: {viewToolData?.price}</p>
+      <p>pricePlan: {viewToolData?.pricePlan}</p>
+      <p>pricing: {viewToolData?.pricing}</p>
+      <p>tool URL: {viewToolData?.toolURL}</p>
+      <p>toolFeature: {viewToolData?.toolFeature}</p>
+      <p>Tool Bookmark Count: {viewToolData?.aiToolBookmarkCount}</p>
+      <p>status: {viewToolData?.status}</p>
+      <p>toolTags: {viewToolData?.toolTags.map(toolTag=><span key={toolTag}>#{toolTag} </span>)}</p>
+      <p>views: {viewToolData?.views}</p></div>
+      </div>
     <div className="modal-action">
       <form method="dialog">
-
-        <button className="btn">Close</button>
-      </form>
-    </div>
-  </div>
-</dialog>
-<dialog id="my_modal_edit" className="modal ">
-  <div className="modal-box w-11/12 max-w-5xl">
-    <h3 className="font-bold text-lg">Hello!</h3>
-    <p className="py-4">Press ESC key or click the button below to close</p>
-    <div className="modal-action">
-      <form method="dialog">
-        {/* if there is a button in form, it will close the modal */}
+      
         <button className="btn">Close</button>
       </form>
     </div>

@@ -23,7 +23,8 @@
     "react-hook-form": "^7.47.0",
     "react-icons": "^4.11.0",
     "react-intersection-observer": "^9.5.2",
-    "react-simple-star-rating": "^5.1.7"
+    "react-simple-star-rating": "^5.1.7",
+    "sweetalert2": "^11.7.32"
   },
   "devDependencies": {
     "autoprefixer": "latest",
