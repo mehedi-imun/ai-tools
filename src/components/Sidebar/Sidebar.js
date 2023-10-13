@@ -8,10 +8,11 @@ import { SiRetool } from "react-icons/si";
 import Link from "next/link";
 const Sidebar = ({ children }) => {
   const [toggle, setToggle] = useState(true);
+
   return (
     <div className="flex flex-row  ">
-      <div className={toggle ? "visible basis-1/5 border  shadow" : "hidden"}>
-        <ul className="menu  p-2">
+      <div className={toggle ? "visible basis-1/5 border shadow" : "hidden"}>
+        <ul className="menu p-2 ">
           <li>
             <Link href="/dashboard">
               <CgProfile className="text-2xl" />
