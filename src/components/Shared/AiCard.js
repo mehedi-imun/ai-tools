@@ -56,12 +56,12 @@ const AiCard = ({tools}) => {
           </div>
           <p>If a dog chews shoes whose shoes does he choose?</p>
           <div className="flex justify-between mt-4">
-            <div className=" flex space-x-1 justify-between items-center bg-gray-100 rounded border px-2  "> <BiSolidLockOpen className="inline "/>
+            <div className=" flex space-x-1 justify-between items-center bg-gray-100 rounded border px-2 text-[#00002F]  "> <BiSolidLockOpen className="inline "/>
             <p>Free</p></div>
             <div className=" flex justify-center items-center text-2xl cursor-pointer tooltip tooltip-info" data-tip="ai tool"><BsStars/></div>
           </div>
           <div className="flex space-x-2 my-4" >
-            <Link href='https://9432604211760.gumroad.com/l/demo' className="hover:underline hover:text-primary" > #aiTool</Link>
+            <Link href='/' className="hover:underline hover:text-primary" > #aiTool</Link>
             <Link href='/' className="hover:underline hover:text-primary"  > #extension</Link>
           </div>
           <div className=" flex overflow-hidden justify-between">

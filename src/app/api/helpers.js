@@ -1,5 +1,4 @@
 export const pick = (obj, keys) => {
- 
     const finalObj = {};
   
     for (const key of keys) {
@@ -44,9 +43,17 @@ export const pick = (obj, keys) => {
   ];
   export const toolSearchableFields = [
     'title',
+    'toolURL',
     'toolDescription',
     'shortDescription',
     'useCase1',
     'useCase2',
     'useCase3'
+  ];
+  export const usersSearchableFields = [
+    'name',
+    'email',
+  ];
+  export const usersFilterableFields = [
+    'searchTerm',
   ];
