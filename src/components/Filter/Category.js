@@ -3,15 +3,15 @@ import { useState } from "react";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 const CategoryCarousel = () => {
   const categories = [
-    "Category 1",
-    "Catry 2",
+    "Category",
+    "Catry",
     "Cate",
-    "Category 4",
-    "Category 5",
-    "Category 6",
-    "Catetegory 8",
-    "Cate 9",
-    "Category 10",
+    "Category",
+    "Category",
+    "Category",
+    "Catetegory",
+    "Cate",
+    "Category",
     // Add more categories as needed
   ];
 
@@ -42,12 +42,13 @@ const CategoryCarousel = () => {
       </button>
       <div className="flex justify-around items-center  space-x-3">
         {visibleCategories.map((category, index) => (
-          <div
+          <a
+          href={`/?subcategories=${category}`}
             key={index}
             className="btn btn-sm rounded-full"
           >
             {category}
-          </div>
+          </a>
         ))}
       </div>
       <button

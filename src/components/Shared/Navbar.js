@@ -62,6 +62,9 @@ const Navbar = () => {
                   <li>
                   <a target="_blank" href="https://jackmateo.com">Blog</a>
                 </li>
+                  <li>
+                  <a target="_blank" href="https://us13.list-manage.com/contact-form?u=c8c4870109147447f0d23f027&form_id=69373552a23655e62bc5169ea2051501">Contact</a>
+                </li>
               
                 </ul>
               </li>
@@ -133,7 +136,7 @@ const Navbar = () => {
               <Link href="/subscribe">Subscribe</Link>
             </li>
             <li>
-              <Link href="/contact">Contact</Link>
+              <a target="_blank" href="https://us13.list-manage.com/contact-form?u=c8c4870109147447f0d23f027&form_id=69373552a23655e62bc5169ea2051501">Contact</a>
             </li>
           </ul>
         </div>
