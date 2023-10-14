@@ -6,6 +6,7 @@ import { LoadMore } from "@/components/Shared/load-more";
 
 const HomePage = async () => {
   const tools = await fetchTools(1);
+  console.log(tools)
   return (
     <div>
       <Banner></Banner>

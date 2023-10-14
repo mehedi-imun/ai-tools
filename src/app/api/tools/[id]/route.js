@@ -7,7 +7,7 @@ export const GET = async (req, { params }) => {
 
   try {
     const post = await prisma.AiTool.update({
-      where: { id },
+      where: { title:id },
       data: { views: { increment: 1 } },
       include:{
         

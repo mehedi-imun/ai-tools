@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import AiCard from "./AiCard";
 import { fetchTools } from "@/actions/fetch-tool";
@@ -7,18 +7,26 @@ import { fetchTools } from "@/actions/fetch-tool";
 export function LoadMore() {
   const [tools, setTools] = useState([]);
   const [page, setPage] = useState(1);
-//   console.log(tools)
+  const [noMoreData, setNoMoreData] = useState(false);
+
   const { ref, inView } = useInView();
-  const delay = (ms) =>
-    new Promise((resolve) => setTimeout(resolve, ms));
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const loadMoreTools = async () => {
-    // Once the page 8 is reached repeat the process all over again.
+    if (noMoreData) return;
+
+    // Delay for simulating loading, you can remove this for production
     await delay(2000);
+    
     const nextPage = (page % 7) + 1;
     const newProducts = (await fetchTools(nextPage)) ?? [];
-    setTools((prevProducts) => [...prevProducts, ...newProducts]);
-    setPage(nextPage);
+
+    if (newProducts.length === 0) {
+      setNoMoreData(true);
+    } else {
+      setTools((prevProducts) => [...prevProducts, ...newProducts]);
+      setPage(nextPage);
+    }
   };
 
   useEffect(() => {
@@ -30,11 +38,12 @@ export function LoadMore() {
   return (
     <>
       <AiCard tools={tools}></AiCard>
-      <div
-        className="flex justify-center items-center p-4 col-span-1 sm:col-span-2 md:col-span-3"
-        ref={ref}
-      >
-    <span className="loading loading-ring loading-lg"></span>
+      <div className="flex justify-center items-center p-4 col-span-1 sm:col-span-2 md:col-span-3" ref={ref}>
+        {noMoreData ? (
+          <span>No more data</span>
+        ) : (
+          <span className="loading loading-ring loading-lg"></span>
+        )}
       </div>
     </>
   );

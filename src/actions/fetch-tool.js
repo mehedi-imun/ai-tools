@@ -1,13 +1,12 @@
 // "use server";
 
 export async function fetchTools(page) {
-  const perPage = 24;
-  const apiUrl = `https://api.punkapi.com/v2/beers?page=${page}&per_page=${perPage}`;
+  const perPage = 10;
+  const apiUrl = `http://localhost:3000/api/tools?page=${page}&limit=${perPage}`;
   try {
     const response = await fetch(apiUrl);
     const data = await response.json();
-    console.log(data)
-    return data ;
+    return data.data;
   } catch (error) {
     console.error("Error fetching data:", error);
     return null;
