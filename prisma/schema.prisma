@@ -78,7 +78,8 @@ model AiTool {
   toolFeature         String
   views               Int              @default(0)
   aiToolBookmarkCount Int              @default(0)
-  status              ToolStatus      @default(PENDING)
+  status              ToolStatus       @default(PENDING)
+  featured            Boolean          @default(false)
   toolTags            String[]
   toolScreenshot      String
   createdAt           DateTime         @default(now())

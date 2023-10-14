@@ -12,7 +12,9 @@ const AiCard = ({ tools }) => {
   return (
     <div className="w-full grid lg:grid-cols-3 grid-cols-1  gap-12 mx-auto ">
       {tools ? (
+       
         tools.map((tool) => (
+          console.log("re",tool.reviews),
           <div key={tool.id}>
             <div className="card  shadow  rounded relative border ">
               <div className=" bg-[#f8f8f8c7]  rounded-l-sm p-2 absolute z-10 top-2 right-0 text-black font-bold">
@@ -52,7 +54,7 @@ const AiCard = ({ tools }) => {
                   </div>
                 </Link>
                 <div className="flex justify-start items-center space-x-1">
-                  {tool && tool.reviews && (
+                  {tool && tool.reviews.length>0 && (
                     <Rating
                       SVGstyle={{ display: "inline" }}
                       initialValue={
@@ -65,15 +67,16 @@ const AiCard = ({ tools }) => {
                       allowHover={false}
                       readonly={true}
                     />
+                    
                   )}
-                  <span>
-                    (
-                    {tool.reviews.reduce(
+                 { tool && tool.reviews.length>0 ? <span>( 
+                    
+                    {tool.reviews.length >0 ?tool.reviews.reduce(
                       (sum, review) => sum + review.rating,
                       0
-                    ) / tool.reviews.length}
-                    )
-                  </span>
+                    ) / tool.reviews.length :""}
+                    
+                  )</span>:"No rating yet"}
                 </div>
                 <Link href={`/tool/${tool?.title}`}>
                   <p>If a dog chews shoes whose shoes does he choose?</p>{" "}
@@ -93,9 +96,9 @@ const AiCard = ({ tools }) => {
                   </div>
                 </div>
                 <div className="flex space-x-2 my-4">
-                  {tool.toolTags.slice(0,3).map((tag, index) => (
+                  {tool.toolTags.slice(0, 3).map((tag, index) => (
                     <Link
-                      href=""
+                      href={`/?toolTags=${tag}`}
                       className="hover:underline hover:text-secondary"
                       key={index}
                     >
@@ -107,7 +110,11 @@ const AiCard = ({ tools }) => {
                   <button className="btn btn-outline border-secondary text-2xl px-12 rounded-full">
                     <BsBookmarkPlus />
                   </button>
-                  <a target="_blank" href={tool.toolURL} className="btn btn-neutral border border-secondary  no-animation bg-secondary text-2xl px-12 rounded-full">
+                  <a
+                    target="_blank"
+                    href={tool.toolURL}
+                    className="btn btn-neutral border border-secondary  no-animation bg-secondary text-2xl px-12 rounded-full"
+                  >
                     <SlShareAlt className="text-white" />
                   </a>
                 </div>

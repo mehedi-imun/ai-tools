@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { LiaToolsSolid, LiaToolboxSolid } from "react-icons/lia";
-import { BiBookmarkHeart } from "react-icons/bi";
-import { MdManageAccounts } from "react-icons/md";
+import { BiBookmarkHeart,BiCategoryAlt } from "react-icons/bi";
+import { MdManageAccounts,MdPublishedWithChanges } from "react-icons/md";
 import { SiRetool } from "react-icons/si";
 import Link from "next/link";
 const Sidebar = ({ children }) => {
@@ -49,6 +49,14 @@ const Sidebar = ({ children }) => {
             <Link href="/dashboard/manage-users">
               <MdManageAccounts className="text-2xl" />
               Manage Users
+            </Link>
+            <Link href="/dashboard/publish-news">
+              <MdPublishedWithChanges className="text-2xl" />
+              publish news
+            </Link>
+            <Link href="/dashboard/add-ai-category">
+              <BiCategoryAlt className="text-2xl" />
+              add ai category
             </Link>
           </li>
         </ul>
