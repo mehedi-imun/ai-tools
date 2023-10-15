@@ -56,7 +56,7 @@ const Sidebar = ({ children }) => {
             </Link>
             <Link href="/dashboard/add-ai-category">
               <BiCategoryAlt className="text-2xl" />
-              add ai category
+              add category
             </Link>
           </li>
         </ul>

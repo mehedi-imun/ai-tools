@@ -1,10 +1,25 @@
 "use client";
-
-import { getApiKey } from "@/utils/getApiKey";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 const SubmitToolPage = () => {
-  const img_hosting_url = `https://api.imgbb.com/1/upload?expiration=600&key=${getApiKey()}`;
+  const [toolTags, setToolTags] = useState([]);
+  const [currentToolTags, setCurrentToolTags] = useState("");
+  const [selectedCategory,setSelectedCategory]=useState("")
+  const [selectedSubcategory, setSelectedSubcategory] = useState("");
+  
+  const handleAddTag = () => {
+    if (currentToolTags.trim() !== "") {
+      setToolTags([...toolTags, currentToolTags]);
+      setCurrentToolTags("");
+    }
+  };
 
+  const handleDeleteTag = (toolTag) => {
+    const updatedToolTags = toolTags?.filter(
+      (item) => item !== toolTag
+    );
+    setToolTags(updatedToolTags);
+  };
   const {
     register,
     handleSubmit,
@@ -13,19 +28,35 @@ const SubmitToolPage = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
-    const formData = new FormData();
-    fetch(img_hosting_url, {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => res.json())
-      .then((imgResponse) => {
-        console.log(imgResponse);
-      });
+    const updatedData = data
+    updatedData.category=selectedCategory
+    updatedData.subcategories=selectedSubcategory
+    updatedData.toolTags=toolTags.map((str) => str.replace(/\s/g, ''))
+    updatedData.userId="5465132sdafasgi15fg"
+    console.log(updatedData)
+  }
+  const categories = [
+    {
+      name: "Technology",
+      subcategories: ["Software", "Hardware", "Gadgets"],
+    },
+    {
+      name: "r",
+      subcategories: ["Software2", "Hardware2", "Gadgets2"],
+    },
+    
+  ];
+  const handleCategoryChange = (e) => {
+    const selectedCategory = e.target.value;
+    setSelectedCategory(selectedCategory);
+    setSelectedSubcategory(""); 
+  };
+  const handleSubCategoryChange = (e) => {
+    const selectedSubCategory = e.target.value;
+    setSelectedSubcategory(selectedSubCategory); 
   };
   return (
-    <div className="bg-base-200 p-5 form_field">
+    <div className="shadow-lg p-5 form_field">
       <h1 className="text-center uppercase text-xl font-bold">
         Submit New Tool
       </h1>
@@ -81,7 +112,7 @@ const SubmitToolPage = () => {
           </span>
         </label>
         <label className="label">
-          <span className="label-text">Use case-2</span>
+          <span className="label-text">Use case-2*</span>
         </label>
         <input
           type="text"
@@ -109,9 +140,10 @@ const SubmitToolPage = () => {
           <span className="label-text">Price</span>
         </label>
         <input
-          type="text"
+          type="number"
           className="input input-bordered w-full mb-5"
           {...register("price")}
+          required
         />
         <label className="label">
           <span className="label-text">Price Plan</span>
@@ -119,13 +151,13 @@ const SubmitToolPage = () => {
         <select
           className="select select-bordered w-full"
           {...register("pricePlan")}
+          required
         >
           <option disabled selected>
             Select price plan
           </option>
-          <option value="DOLLARS_PER_MONTH">DOLLARS_PER_MONTH</option>
-          <option value="DOLLARS_PER_YEAR">DOLLARS_PER_YEAR</option>
-          <option value="DOLLARS_PER_MINUTE">DOLLARS_PER_MINUTE</option>
+          <option value="DOLLARS_PER_MONTH">DOLLARS PER MONTH</option>
+          <option value="DOLLARS_PER_YEAR">DOLLARS PER YEAR</option>
         </select>
         <label className="label">
           <span className="label-text">Payment Model</span>
@@ -133,6 +165,7 @@ const SubmitToolPage = () => {
         <select
           className="select select-bordered w-full"
           {...register("pricing")}
+          required
         >
           <option disabled selected>
             Select payment model
@@ -165,46 +198,83 @@ const SubmitToolPage = () => {
           placeholder="Features"
           className="input input-bordered w-full  mb-5"
           {...register("toolFeature")}
+          required
         />
         <label className="label">
           <span className="label-text">Tool Category*</span>
         </label>
         <select
-          className="select select-bordered w-full"
-          {...register("category")}
-          required
-        >
-          <option disabled selected>
-            Select tool category
-          </option>
-          <option>Travel</option>
-          <option>Story</option>
-          <option>Gaming</option>
-        </select>
+        className="select select-bordered w-full"
+        onChange={(e)=>handleCategoryChange(e)}
+        value={selectedCategory}
+        required
+        
+      >
+        <option value="" disabled>
+          Select tool category
+        </option>
+        {categories?.map((category,index)=><option value={category.name} key={index}>{category.name}</option>)}
+        
+      </select>
         <label className="label mb-5">
           <span className="label-text">
             Select the category of this tool. Ex:SEO or Video Generation
           </span>
+          
         </label>
 
-        <label className="label">
-          <span className="label-text">Subcategories</span>
-        </label>
-        <input
-          type="text"
-          placeholder="Subcategories"
-          className="input input-bordered w-full mb-5"
-          {...register("subcategories")}
-        />
+        <select
+        className="select select-bordered w-full"
+        onChange={handleSubCategoryChange}
+        value={selectedSubcategory}
+        required
+      
+      >
+        <option value="" disabled>
+          Select subcategory
+        </option>
+        {categories
+          .find((category) => category.name === selectedCategory)
+          ?.subcategories.map((subcategory, index) => (
+            <option key={index} value={subcategory}>
+              {subcategory}
+            </option>
+          ))}
+      </select>
         <label className="label">
           <span className="label-text">Tool Tags (Select 1)</span>
         </label>
-        <input
-          type="text"
-          placeholder="Tags"
-          className="input input-bordered w-full mb-5"
-          {...register("toolTags")}
-        />
+         <div className="flex space-x-2 mb-4 items-center">
+            <input
+              type="text"
+              {...register("tolTags")}
+              placeholder="Add tags"
+              className="input input-bordered"
+              value={currentToolTags}
+              onChange={(e) => setCurrentToolTags(e.target.value)}
+            />
+            <button
+              type="button"
+              onClick={handleAddTag}
+              className="btn btn-sm btn-secondary"
+            >
+              Add
+            </button>
+          </div>
+          <div className="flex space-x-2">
+            {toolTags.map((toolTag,index) => (
+              <p key={index} className="border p-2 rounded-lg border-secondary bg-gray-300 text-neutral">
+                {toolTag}
+                <button
+                  type="button"
+                  onClick={() => handleDeleteTag(toolTag)}
+                >
+                  &times;
+                </button>
+              </p>
+            ))}
+          </div>
+
         <label className="label">
           <span className="label-text">Tool Screenshot*</span>
         </label>
@@ -212,7 +282,7 @@ const SubmitToolPage = () => {
           type="file"
           className="file-input file-input-bordered w-full"
           {...register("toolScreenshot")}
-          required
+          
         />
         <label className="label mb-5">
           <span className="label-text">Maximum file size: 5MB</span>
