@@ -1,6 +1,7 @@
 "use client";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
+import { ImCross } from "react-icons/im";
 import Image from "next/image";
 import Link from "next/link";
 import { ThemeChanger } from "../Providers/ThemeChanger";
@@ -8,11 +9,15 @@ const Navbar = () => {
   const { theme } = useTheme();
   const { status, data } = useSession();
   return (
-    <div className="border-b h-18 bg-base-100 sticky top-0 left-0 right-0 z-50 nav_bar">
+    <div className="border-b h-18 bg-base-100 sticky top-0 left-0 right-0 z-50 ">
       <div className="navbar p-0 max-w-[1180px] mx-auto ">
         <div className="navbar-start">
           <div className="dropdown">
-            <label tabIndex={0} className="btn btn-ghost lg:hidden">
+            <label
+              htmlFor="my-drawer-4"
+              tabIndex={0}
+              className=" btn-ghost drawer-button btn btn-primary lg:hidden"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -29,49 +34,66 @@ const Navbar = () => {
               </svg>
             </label>
             {/* small device */}
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content mt-2 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-            >
-              <li>
-                <a>Favorites</a>
-              </li>
-              <li>
-                <a>Submit</a>
-                <ul
-                  tabIndex={-1}
-                  className="p-2 bg-base-100 text-lg font-light"
-                >
-                  <li>
-                    <Link href="/dashboard/submit-tool">Submit Tool</Link>
-                  </li>
+
+            <div className="drawer drawer-end z-50">
+              <input
+                id="my-drawer-4"
+                type="checkbox"
+                className="drawer-toggle"
+              />
+              <div className="drawer-content">{/* Page content here */}</div>
+              <div className="drawer-side">
+                <label
+                  htmlFor="my-drawer-4"
+                  aria-label="close sidebar"
+                  className="drawer-overlay"
+                ></label>
+                <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+                  <ul tabIndex={0} className="">
+                  <label
+                  htmlFor="my-drawer-4"
+                  aria-label="close sidebar"
+                  className="drawer-overlay btn  btn-xs"
+                > <ImCross className=""></ImCross></label>
+                    <li>
+                      <a>Favorites</a>
+                    </li>
+                    <li>
+                      <a>Submit</a>
+                      <ul tabIndex={-1} className="">
+                        <li>
+                          <Link href="/dashboard/submit-tool">Submit Tool</Link>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a>Resources</a>
+                      <ul className="">
+                        <li>
+                          <Link href="/news">Latest AI News</Link>
+                        </li>
+                        <li>
+                          <a
+                            target="_blank"
+                            href="https://discord.com/invite/CCmUHTPj"
+                          >
+                            Join Discord
+                          </a>
+                        </li>
+                        <li>
+                          <a target="_blank" href="https://jackmateo.com">
+                            Blog
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a>Subscribe</a>
+                    </li>
+                  </ul>
                 </ul>
-              </li>
-              <li>
-                <a>Resources</a>
-                <ul className="p-2 bg-base-100 text-lg font-light">
-                  <li>
-                    <Link href="/news">Latest AI News</Link>
-                  </li>
-                  <li>
-                    <a
-                      target="_blank"
-                      href="https://discord.com/invite/CCmUHTPj"
-                    >
-                      Join Discord
-                    </a>
-                  </li>
-                  <li>
-                    <a target="_blank" href="https://jackmateo.com">
-                      Blog
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a>Subscribe</a>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
           {theme === "dark" ? (
             <Link href="/" className="w-full">
@@ -141,7 +163,12 @@ const Navbar = () => {
               <Link href="/subscribe">Subscribe</Link>
             </li>
             <li>
-              <a target="_blank" href="https://us13.list-manage.com/contact-form?u=c8c4870109147447f0d23f027&form_id=69373552a23655e62bc5169ea2051501">Contact</a>
+              <a
+                target="_blank"
+                href="https://us13.list-manage.com/contact-form?u=c8c4870109147447f0d23f027&form_id=69373552a23655e62bc5169ea2051501"
+              >
+                Contact
+              </a>
             </li>
           </ul>
         </div>

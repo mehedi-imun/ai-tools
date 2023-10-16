@@ -10,8 +10,8 @@ const Sidebar = ({ children }) => {
   const [toggle, setToggle] = useState(true);
 
   return (
-    <div className="flex flex-row  ">
-      <div className={toggle ? "visible basis-1/5 border shadow" : "hidden"}>
+    <div className="flex flex-row  max-w-[1180px] mx-auto ">
+      <div className={toggle ? "lg:flex hidden basis-1/5 border shadow" : "hidden"}>
         <ul className="menu p-2 ">
           <li>
             <Link href="/dashboard">
@@ -62,8 +62,8 @@ const Sidebar = ({ children }) => {
         </ul>
       </div>
 
-      <div className={toggle ? "hidden" : "visible basis-1/8 border "}>
-        <ul className="menu  p-2">
+      <div className={toggle ? "hidden" : "lg:flex hidden basis-1/8 border "}>
+        <ul className="menu    p-2">
           <li>
             <Link href="/dashboard">
               <CgProfile className="text-2xl" />

@@ -2,59 +2,64 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { AiOutlineDislike, AiOutlineLike, AiTwotoneStar } from "react-icons/ai";
+import { BiEditAlt } from "react-icons/bi";
 import { BsShareFill } from "react-icons/bs";
+import { MdDelete } from "react-icons/md";
 import { Rating } from "react-simple-star-rating";
+const myReview = {
+  rating: 4,
+  content: "This work.",
+  createAt: "14 Sept",
+  name: "mehedi imun",
+  status: "PENDING",
+  likeCount: 4,
+  unlikeCount: 0,
+};
 const reviews = [
   {
     rating: 4,
     content: "This tool is amazing! It helped me a lot with my work.",
     createAt: "14 Sept",
+    likeCount: 4,
+    unlikeCount: 0,
+    name: "SDFGSDFG",
+    status: "PUBLISHED",
+  },
+  {
+    rating: 4,
+    content: "This tool is amazing! It helped me a lot with my work.",
+    createAt: "14 Sept",
+    likeCount: 4,
+    unlikeCount: 0,
+    name: "mehedi imun",
+    status: "PUBLISHED",
   },
   {
     rating: 1,
     content: "This tool is amazing! It helped me a lot with my work.",
     createAt: "14 Sept",
+    likeCount: 9,
+    unlikeCount: 0,
+    name: "SDFGSDFG",
+    status: "PUBLISHED",
   },
   {
     rating: 4,
-    content: " It helped me a lot with my work.",
+    content: "This tool is amazing! It helped me a lot with my work.",
     createAt: "14 Sept",
+    likeCount: 4,
+    unlikeCount: 15,
+    name: "mDHGH",
+    status: "PUBLISHED",
   },
-  {
-    rating: 4,
-    content: "t with my work.",
-    createAt: "14 Sept",
-  },
-  {
-    rating: 4,
-    content: "This work.",
-    createAt: "14 Sept",
-  },
-  {
-    rating: 4,
-    content: "amazing! It h",
-    createAt: "14 Sept",
-  },
-  {
-    rating: 4,
-    content: "This tool is amazing! ",
-    createAt: "14 Sept",
-  },
-  {
-    rating: 3,
-    content: " helped me a lot with my work.",
-    createAt: "14 Sept",
-  },
-  {
-    rating: 5,
-    content: " work.",
-    createAt: "11 Sept",
-  },
-  // Add more reviews here...
 ];
 function Reviews({ tool }) {
+  
   const [isOpen, setIsOpen] = useState(false);
-
+  const [ratingValue, setRatingValue] = useState(0);
+  const handleRating = (rate) => {
+    setRatingValue(rate);
+  };
   const closeModal = () => {
     setIsOpen(false);
   };
@@ -65,8 +70,15 @@ function Reviews({ tool }) {
     reset,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
+  const onSubmit = (updatedData) => {
+    updatedData.rating = ratingValue;
+    updatedData.userId = "clnozvwto0000v7i4b798qwqc";
+    updatedData.toolId = tool.id;
+    const data = {
+      data: updatedData,
+    };
     console.log(data);
+    closeModal();
   };
   const reviewsPerPage = 5; // Number of reviews per page
   const [currentPage, setCurrentPage] = useState(1);
@@ -104,29 +116,36 @@ function Reviews({ tool }) {
           {" "}
           {tool?.title} Reviews
         </h3>
-        <div className="card w-full bg-[#f000b80c] ">
-          <div className="card-body text-black  ">
-            <div className="grid grid-cols-1 md:grid-cols-4 ">
-              <div className="hidden md:block"></div>
-              <div className="col-span-1 md:col-span-2 space-y-3 ">
-                <p className="font-bold text-center md:text-left">
-                  What do you think about {tool?.title} ?
-                </p>
-                <p className="text-center md:text-left">
-                  Leave a review for the community
-                </p>
-              </div>
-              <div className="flex items-center justify-center md:justify-end col-span-1">
-                <Rating
+        {myReview.length === "undefined" ? (
+          ""
+        ) : (
+          <div className="card w-full bg-[#f000b80c] ">
+            <div className="card-body text-black  ">
+              <div className="grid grid-cols-1 md:grid-cols-4 ">
+                <div className="hidden md:block"></div>
+                <div className="col-span-1 md:col-span-2 space-y-3 ">
+                  <p className="font-bold text-center md:text-left">
+                    What do you think about {tool?.title} ?
+                  </p>
+                  <p className="text-center md:text-left">
+                    Leave a review for the community
+                  </p>
+                </div>
+                <div
                   onClick={() => setIsOpen(true)}
-                  SVGstyle={{ display: "inline" }}
-                  initialValue={0}
-                  size={40} // Reduce the size for smaller screens
-                />
+                  className="flex items-center justify-center md:justify-end col-span-1"
+                >
+                  <Rating
+                    onClick={handleRating}
+                    SVGstyle={{ display: "inline" }}
+                    initialValue={0}
+                    size={40} // Reduce the size for smaller screens
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
 
       {isOpen && (
@@ -140,14 +159,13 @@ function Reviews({ tool }) {
               What do you think about {tool?.title} ?
             </h2>
 
-            {/* Pricing Filter */}
             <div className="space-y-2">
               <span className="font-semibold">What is your rating?</span>
               <div className=" ">
                 <Rating
-                  onClick={() => setIsOpen(true)}
                   SVGstyle={{ display: "inline" }}
-                  initialValue={0}
+                  initialValue={ratingValue}
+                  onClick={handleRating}
                   size={40} // Reduce the size for smaller screens
                 />
               </div>
@@ -157,7 +175,7 @@ function Reviews({ tool }) {
                   type="text"
                   placeholder="Tel us about your experience with this tool "
                   className="input input-bordered w-full mb-5 textarea lg:h-40"
-                  {...register("category")}
+                  {...register("content")}
                   required
                 />
                 <label>
@@ -206,10 +224,50 @@ function Reviews({ tool }) {
           ))}
         </div>
         <div>
+          <div className="px-8">
+            <h3 className="text-lg font-bold mb-3">{myReview?.name}</h3>
+            <div className="mb-3">
+              <Rating
+                SVGstyle={{ display: "inline" }}
+                initialValue={myReview?.rating}
+                size={30} // Reduce the size for smaller screens
+                allowHover={false}
+                readonly={true}
+              />
+            </div>
+            <p>{myReview?.content}</p>
+            <div className="lg:flex justify-between items-center mt-6">
+              <div className="flex items-center space-x-6">
+                <span>{myReview?.createAt}</span>
+                <button className="btn no-animation text-secondary border-0 bg-transparent btn-circle">
+                  <BsShareFill className="text-2xl inline " />
+                </button>
+                <button className="btn no-animation text-gray-500 border-0 bg-transparent btn-circle">
+                  <MdDelete className="text-2xl inline " />
+                </button>
+                <button className="btn no-animation text-gray-500 border-0 bg-transparent btn-circle">
+                  <BiEditAlt className="text-2xl inline " />
+                </button>
+              </div>
+              <div>
+                <div className="flex items-center space-x-3  lg:mt-0 mt-5 ">
+                  <button className="btn no-animation text-secondary border-0 bg-transparent btn-circle">
+                    <AiOutlineLike className=" inline text-xl " />
+                    {myReview.likeCount}
+                  </button>
+                  <button className="btn no-animation text-secondary border-0 bg-transparent btn-circle">
+                    <AiOutlineDislike className="inline text-xl" />
+                    {myReview.unlikeCount}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="divider my-4"></div>
+          </div>
           {currentReviews?.map((review, index) => (
-            <div key={index} className="px-8">
+            <div key={index} className="">
               <div key={index} className="px-8">
-                <h3 className="text-lg font-bold mb-3">{review.author}</h3>
+                <h3 className="text-lg font-bold mb-3">{review.name}</h3>
                 <div className="mb-3">
                   <Rating
                     SVGstyle={{ display: "inline" }}
@@ -231,9 +289,11 @@ function Reviews({ tool }) {
                     <div className="flex items-center space-x-3">
                       <button className="btn no-animation text-secondary border-0 bg-transparent btn-circle">
                         <AiOutlineLike className=" inline text-xl " />
+                        {review.likeCount}
                       </button>
                       <button className="btn no-animation text-secondary border-0 bg-transparent btn-circle">
                         <AiOutlineDislike className="inline text-xl" />
+                        {review.unlikeCount}
                       </button>
                     </div>
                   </div>
