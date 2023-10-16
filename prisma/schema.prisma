@@ -219,5 +219,4 @@ enum PricingFormat {
 enum PriceFormat {
   DOLLARS_PER_MONTH
   DOLLARS_PER_WEEK
-  DOLLARS_PER_MINUTE
 }

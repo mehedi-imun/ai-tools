@@ -7,14 +7,10 @@ import { SlShareAlt } from "react-icons/sl";
 import { Rating } from "react-simple-star-rating";
 import Link from "next/link";
 const AiCard = ({ tools }) => {
-  console.log(tools);
-
   return (
     <div className="w-full grid lg:grid-cols-3 grid-cols-1  gap-12 mx-auto ">
       {tools ? (
-       
-        tools.map((tool) => (
-          console.log("re",tool.reviews),
+        tools?.map((tool) => (
           <div key={tool.id}>
             <div className="card  shadow  rounded relative border ">
               <div className=" bg-[#f8f8f8c7]  rounded-l-sm p-2 absolute z-10 top-2 right-0 text-black font-bold">

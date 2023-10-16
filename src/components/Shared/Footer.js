@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <div className="">
         <div className="border border-black max-w-[1180px]  mx-auto"></div>
-      <footer className="footer max-w-[1180px]  mx-auto py-10 justify-between  ">
+      <footer className="  footer max-w-[1180px]  mx-auto py-10 justify-between  ">
         <nav>
           <header className="footer-title">ai Services</header>
           <Link href="/dashboard/submit-tool" className="link link-hover">Submit ai Tool</Link>

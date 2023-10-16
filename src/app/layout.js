@@ -12,10 +12,10 @@ export const metadata = {
 export default async function RootLayout({ children }) {
   const session = await getServerSession(authOptions);
   return (
-    <html lang="en" data-theme="light">
-      <body className="">
+    <html className="scroll-smooth" lang="en" data-theme="light">
+      <body className="mx-6 lg:mx-0">
         <Providers session={session}>
-          <main className="min-h-screen   max-w-[1180px] mx-auto">
+          <main className="min-h-screen   max-w-[1180px] mx-auto ">
             <NextBreadcrumb
               homeElement={"Home"}
               separator={<span> {">"} </span>}
