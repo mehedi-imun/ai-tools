@@ -71,6 +71,9 @@ model AiTool {
   useCase1            String
   useCase2            String
   useCase3            String
+  keyFeatures1        String?
+  keyFeatures2        String?
+  keyFeatures3        String?
   price               Int
   pricePlan           PriceFormat
   pricing             PricingFormat
@@ -180,11 +183,12 @@ model News {
   user              User           @relation(fields: [userId], references: [id])
   NewsBookmark      NewsBookmark[]
 }
+
 model NewsCategory {
-  id            String   @id @default(cuid())
-  category          String   @unique
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id        String   @id @default(cuid())
+  category  String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum PaymentStatus {

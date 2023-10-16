@@ -112,7 +112,7 @@ const ToolDetailPage = ({ params }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-9 mt-12 gap-x-8">
         <div className="md:col-span-4 relative">
-          <a target="_blank" href={tool.toolURL}>
+          <a target="_blank" href={tool?.toolURL}>
             <img
               className="rounded-3xl object-fill h-60 md:h-72 w-full"
               src="https://cdn.appuals.com/wp-content/uploads/2023/03/ImgPile-Homepage-1024x508.png.webp"
@@ -150,8 +150,8 @@ const ToolDetailPage = ({ params }) => {
                 <p>{tool?.pricing}</p>
               </div>
               <p className="mt-0">
-                Start From ${tool.price}/
-                {tool.pricePlan.split("_").pop().toLowerCase()}
+                Start From ${tool?.price}/
+                {tool?.pricePlan.split("_").pop().toLowerCase()}
               </p>
             </div>
           )}
@@ -161,32 +161,32 @@ const ToolDetailPage = ({ params }) => {
       <div className="mt-12 lg:grid grid-cols-9 text-lg gap-x-6">
         <div className="col-span-6">
           {" "}
-          <h3 className="text-xl mb-12 ">{tool.title} Features</h3>
+          <h3 className="text-xl mb-12 ">{tool?.title} Features</h3>
           <p>
-            <span>{tool.title}:</span> {tool.toolDescription}
+            <span>{tool.title}:</span> {tool?.toolDescription}
           </p>
           <h3 className="text-xl font-bold my-6">Key Features:</h3>
           <ul className="list-disc pl-4 ">
             <li>
-              <p>{tool.keyFeatures1}</p>
+              <p>{tool?.keyFeatures1}</p>
             </li>
             <li>
-              <p>{tool.keyFeatures2}</p>
+              <p>{tool?.keyFeatures2}</p>
             </li>
             <li>
-              <p>{tool.keyFeatures3}</p>
+              <p>{tool?.keyFeatures3}</p>
             </li>
           </ul>
           <h3 className="text-xl font-bold my-6">Use cases :</h3>
           <ul className="list-disc pl-4">
-            <li>{tool.useCase1}</li>
-            <li>{tool.useCase2}</li>
-            <li>{tool.useCase3}</li>
+            <li>{tool?.useCase1}</li>
+            <li>{tool?.useCase2}</li>
+            <li>{tool?.useCase3}</li>
           </ul>
           <div className="my-6">
             <p>
-              With <span className="font-bold"> {tool.title} </span>
-              {tool.toolSummary}
+              With <span className="font-bold"> {tool?.title} </span>
+              {tool?.toolSummary}
             </p>
           </div>
         </div>

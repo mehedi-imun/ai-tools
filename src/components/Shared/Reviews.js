@@ -130,12 +130,12 @@ function Reviews({ tool }) {
       </div>
 
       {isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 w-80 mx-auto">
+        <div className="fixed inset-0 flex items-center justify-center  mx-auto z-50 ">
           <div
             className="fixed inset-0 bg-black opacity-30"
             onClick={closeModal}
           ></div>
-          <div className="bg-white px-12 py-6 rounded-lg shadow-lg z-10 modal_bg">
+          <div className="bg-white px-4 lg:px-12 py-6 rounded-lg shadow-lg z-10 lg:w-[30%] w-[80%]">
             <h2 className="text-sm text-center font-semibold mb-6 ">
               What do you think about {tool?.title} ?
             </h2>
@@ -156,7 +156,7 @@ function Reviews({ tool }) {
                 <textarea
                   type="text"
                   placeholder="Tel us about your experience with this tool "
-                  className="input input-bordered w-full mb-5 textarea h-40"
+                  className="input input-bordered w-full mb-5 textarea lg:h-40"
                   {...register("category")}
                   required
                 />
@@ -166,16 +166,16 @@ function Reviews({ tool }) {
                   profanity, promo links or impersonation. It can take one to
                   three business days for your review to be approved.
                 </label>
-                <div className="mt-6 flex justify-between space-x-6">
+                <div className="mt-6 flex justify-between  lg:space-x-6">
                   <button
                     onClick={() => setIsOpen(false)}
-                    className="btn btn-wide rounded-full"
+                    className="btn lg:btn-wide rounded-full"
                   >
                     CANCEL
                   </button>
                   <button
                     type="submit"
-                    className="btn  btn-secondary btn-wide rounded-full"
+                    className="btn  btn-secondary lg:btn-wide rounded-full"
                   >
                     SUBMIT REVIEW
                   </button>
