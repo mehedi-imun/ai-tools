@@ -9,16 +9,16 @@ const Footer = () => {
         <nav>
           <header className="footer-title">ai Services</header>
           <Link href="/dashboard/submit-tool" className="link link-hover">Submit ai Tool</Link>
-          <a className="link link-hover">Update ai Tool Request</a>
-          <a className="link link-hover">Request A ai Feature</a>
+          {/* <a className="link link-hover">Update ai Tool Request</a>
+          <a className="link link-hover">Request A ai Feature</a> */}
         </nav>
     
         <nav>
           <header className="footer-title">Company</header>
           <Link href="/privacyPolicy" className="link link-hover">Privacy Policy</Link>
           <Link href="/termsAndConditions" className="link link-hover">Terms And Conditions</Link>
-          <a className="link link-hover">Contact us</a>
-          <a className="link link-hover">About Us</a>
+          <Link href="/about-us" className="link link-hover">About Us</Link>
+          <a href="https://us13.list-manage.com/contact-form?u=c8c4870109147447f0d23f027&form_id=69373552a23655e62bc5169ea2051501" target='_blank' className="link link-hover">Contact us</a>
         </nav>
         <nav className="">
         <header className="footer-title">Social</header>

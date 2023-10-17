@@ -10,6 +10,7 @@ import {
 import { useSession } from "next-auth/react";
 import { app } from "@/utils/firebase";
 const SubmitToolPage = () => {
+  
   const { status } = useSession();
   const [toolTags, setToolTags] = useState([]);
   const [currentToolTags, setCurrentToolTags] = useState("");
@@ -32,13 +33,13 @@ const SubmitToolPage = () => {
     register,
     handleSubmit,
     watch,
+
     formState: { errors },
   } = useForm();
-  if (status === "loading") {
-    return <span className="loading loading-ring loading-lg"></span>;
-  }
+  
 
   const onSubmit = async (data) => {
+   
     const storage = getStorage(app);
     const upload = async () => {
       const name = new Date().getTime() + data.file[0].name;
@@ -100,6 +101,10 @@ const SubmitToolPage = () => {
     const selectedSubCategory = e.target.value;
     setSelectedSubcategory(selectedSubCategory);
   };
+   if (status === "loading") {
+    return <div >Loading...</div>;
+  }
+
   return (
     <div className="shadow-lg p-5 form_field">
       <h1 className="text-center uppercase text-xl font-bold">
@@ -326,7 +331,7 @@ const SubmitToolPage = () => {
         <input
           type="file"
           className="file-input file-input-bordered w-full"
-          // onChange={(e) => setFile(e.target.files[0])}
+          required
           {...register("toolScreenshot")}
         />
         <label className="label mb-5">
