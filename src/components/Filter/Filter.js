@@ -183,7 +183,7 @@ const Filter = () => {
             className="fixed inset-0 bg-black opacity-30"
             onClick={closeModal}
           ></div>
-          <div className="bg-white px-12 py-6 rounded-lg shadow-lg z-10 modal_bg">
+          <div className="bg-white px-4 lg:px-12 py-6 rounded-lg shadow-lg z-10 lg:w-[30%] w-[80%]">
             <h2 className="text-sm font-semibold mb-6 ">
               Select Filters to Apply
             </h2>
@@ -191,7 +191,7 @@ const Filter = () => {
             {/* Pricing Filter */}
             <div className="space-y-2">
               <span className="font-semibold">Pricing</span>
-              <div className="grid grid-cols-2 gap-x-16 gap-y-4">
+              <div className="grid grid-cols-2 lg:gap-x-16 gap-y-4">
                 {filterOptions.pricing.map((option) => (
                   <label
                     key={option.value}
@@ -236,13 +236,13 @@ const Filter = () => {
             <div className="mt-6 flex justify-between space-x-6">
               <button
                 onClick={clearFilters}
-                className="btn btn-wide rounded-full"
+                className="btn lg:btn-wide rounded-full"
               >
                 Clear
               </button>
               <button
                 onClick={applyFilters}
-                className="btn  btn-secondary btn-wide rounded-full"
+                className="btn  btn-secondary lg:btn-wide rounded-full"
               >
                 Apply Filters
               </button>

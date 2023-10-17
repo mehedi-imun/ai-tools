@@ -1,12 +1,21 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import { useSession } from "next-auth/react";
+import { app } from "@/utils/firebase";
 const SubmitToolPage = () => {
+  const { status } = useSession();
   const [toolTags, setToolTags] = useState([]);
   const [currentToolTags, setCurrentToolTags] = useState("");
-  const [selectedCategory,setSelectedCategory]=useState("")
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
-  
+
   const handleAddTag = () => {
     if (currentToolTags.trim() !== "") {
       setToolTags([...toolTags, currentToolTags]);
@@ -15,26 +24,63 @@ const SubmitToolPage = () => {
   };
 
   const handleDeleteTag = (toolTag) => {
-    const updatedToolTags = toolTags?.filter(
-      (item) => item !== toolTag
-    );
+    const updatedToolTags = toolTags?.filter((item) => item !== toolTag);
     setToolTags(updatedToolTags);
   };
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
-
-  const onSubmit = (data) => {
-    const updatedData = data
-    updatedData.category=selectedCategory
-    updatedData.subcategories=selectedSubcategory
-    updatedData.toolTags=toolTags.map((str) => str.replace(/\s/g, ''))
-    updatedData.userId="5465132sdafasgi15fg"
-    console.log(updatedData)
+  if (status === "loading") {
+    return <span className="loading loading-ring loading-lg"></span>;
   }
+
+  const onSubmit = async (data) => {
+    const storage = getStorage(app);
+    const upload = async () => {
+      const name = new Date().getTime() + data.file[0].name;
+      const storageRef = ref(storage, name);
+
+      const uploadTask = uploadBytesResumable(storageRef, data.file[0]);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
+          switch (snapshot.state) {
+            case "paused":
+              console.log("Upload is paused");
+              break;
+            case "running":
+              console.log("Upload is running");
+              break;
+          }
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            data.toolScreenshot = downloadURL;
+          });
+        }
+      );
+    };
+
+   await upload();
+
+    const updatedData = data;
+    updatedData.category = selectedCategory;
+    updatedData.subcategories = selectedSubcategory;
+    updatedData.toolTags = toolTags.map((str) => str.replace(/\s/g, ""));
+    updatedData.userId = "5465132sdafasgi15fg";
+    console.log(updatedData);
+  };
   const categories = [
     {
       name: "Technology",
@@ -44,16 +90,15 @@ const SubmitToolPage = () => {
       name: "r",
       subcategories: ["Software2", "Hardware2", "Gadgets2"],
     },
-    
   ];
   const handleCategoryChange = (e) => {
     const selectedCategory = e.target.value;
     setSelectedCategory(selectedCategory);
-    setSelectedSubcategory(""); 
+    setSelectedSubcategory("");
   };
   const handleSubCategoryChange = (e) => {
     const selectedSubCategory = e.target.value;
-    setSelectedSubcategory(selectedSubCategory); 
+    setSelectedSubcategory(selectedSubCategory);
   };
   return (
     <div className="shadow-lg p-5 form_field">
@@ -204,76 +249,76 @@ const SubmitToolPage = () => {
           <span className="label-text">Tool Category*</span>
         </label>
         <select
-        className="select select-bordered w-full"
-        onChange={(e)=>handleCategoryChange(e)}
-        value={selectedCategory}
-        required
-        
-      >
-        <option value="" disabled>
-          Select tool category
-        </option>
-        {categories?.map((category,index)=><option value={category.name} key={index}>{category.name}</option>)}
-        
-      </select>
+          className="select select-bordered w-full"
+          onChange={(e) => handleCategoryChange(e)}
+          value={selectedCategory}
+          required
+        >
+          <option value="" disabled>
+            Select tool category
+          </option>
+          {categories?.map((category, index) => (
+            <option value={category.name} key={index}>
+              {category.name}
+            </option>
+          ))}
+        </select>
         <label className="label mb-5">
           <span className="label-text">
             Select the category of this tool. Ex:SEO or Video Generation
           </span>
-          
         </label>
 
         <select
-        className="select select-bordered w-full"
-        onChange={handleSubCategoryChange}
-        value={selectedSubcategory}
-        required
-      
-      >
-        <option value="" disabled>
-          Select subcategory
-        </option>
-        {categories
-          .find((category) => category.name === selectedCategory)
-          ?.subcategories.map((subcategory, index) => (
-            <option key={index} value={subcategory}>
-              {subcategory}
-            </option>
-          ))}
-      </select>
+          className="select select-bordered w-full"
+          onChange={handleSubCategoryChange}
+          value={selectedSubcategory}
+          required
+        >
+          <option value="" disabled>
+            Select subcategory
+          </option>
+          {categories
+            .find((category) => category.name === selectedCategory)
+            ?.subcategories.map((subcategory, index) => (
+              <option key={index} value={subcategory}>
+                {subcategory}
+              </option>
+            ))}
+        </select>
         <label className="label">
           <span className="label-text">Tool Tags (Select 1)</span>
         </label>
-         <div className="flex space-x-2 mb-4 items-center">
-            <input
-              type="text"
-              {...register("tolTags")}
-              placeholder="Add tags"
-              className="input input-bordered"
-              value={currentToolTags}
-              onChange={(e) => setCurrentToolTags(e.target.value)}
-            />
-            <button
-              type="button"
-              onClick={handleAddTag}
-              className="btn btn-sm btn-secondary"
+        <div className="flex space-x-2 mb-4 items-center">
+          <input
+            type="text"
+            {...register("tolTags")}
+            placeholder="Add tags"
+            className="input input-bordered"
+            value={currentToolTags}
+            onChange={(e) => setCurrentToolTags(e.target.value)}
+          />
+          <button
+            type="button"
+            onClick={handleAddTag}
+            className="btn btn-sm btn-secondary"
+          >
+            Add
+          </button>
+        </div>
+        <div className="flex space-x-2">
+          {toolTags.map((toolTag, index) => (
+            <p
+              key={index}
+              className="border p-2 rounded-lg border-secondary bg-gray-300 text-neutral"
             >
-              Add
-            </button>
-          </div>
-          <div className="flex space-x-2">
-            {toolTags.map((toolTag,index) => (
-              <p key={index} className="border p-2 rounded-lg border-secondary bg-gray-300 text-neutral">
-                {toolTag}
-                <button
-                  type="button"
-                  onClick={() => handleDeleteTag(toolTag)}
-                >
-                  &times;
-                </button>
-              </p>
-            ))}
-          </div>
+              {toolTag}
+              <button type="button" onClick={() => handleDeleteTag(toolTag)}>
+                &times;
+              </button>
+            </p>
+          ))}
+        </div>
 
         <label className="label">
           <span className="label-text">Tool Screenshot*</span>
@@ -281,8 +326,8 @@ const SubmitToolPage = () => {
         <input
           type="file"
           className="file-input file-input-bordered w-full"
+          // onChange={(e) => setFile(e.target.files[0])}
           {...register("toolScreenshot")}
-          
         />
         <label className="label mb-5">
           <span className="label-text">Maximum file size: 5MB</span>
