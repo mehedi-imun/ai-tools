@@ -86,7 +86,6 @@ export async function GET(req, res) {
   }
 
   const whereConditions = andConditions.length > 0 ? { OR: andConditions } : {};
-  console.log(whereConditions);
   try {
     const result = await prisma.AiTool.findMany({
       where: whereConditions,

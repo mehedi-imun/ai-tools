@@ -44,12 +44,19 @@ const AiTools = () => {
         {categories ? (
           categories.map((category) => (
             <div className=" my-6" key={category.id}>
-              <h3 className="my-2 text-secondary font-bold text-xl">{category.name}</h3>
-              {category.subcategories.map(sub=><a 
-              href={`/?subcategories=${sub}`}
-              className="text-xl block "
-              key={sub}> {sub}
-              </a>)}
+              <h3 className="my-2 text-secondary font-bold text-xl">
+                {category.name}
+              </h3>
+              {category.subcategories.map((sub) => (
+                <a
+                  href={`/?subcategories=${sub}`}
+                  className="text-xl block "
+                  key={sub}
+                >
+                  {" "}
+                  {sub}
+                </a>
+              ))}
             </div>
           ))
         ) : (

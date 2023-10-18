@@ -14,12 +14,11 @@ const AddNews = () => {
   };
   const categories = [
     {
-     category: "ai", 
+      category: "ai",
     },
     {
       category: "Software",
     },
-    
   ];
   return (
     <div>
@@ -38,19 +37,23 @@ const AddNews = () => {
             {...register("title")}
             required
           />
-           <label className="label">
-          <span className="label-text">news category</span>
-        </label>
-        <select
-          className="select select-bordered w-full"
-          {...register("pricePlan")}
-          required
-        >
-          <option disabled selected>
-            Select news category
-          </option>
-          {categories?.map((category,index)=><option key={index}value={category.category}>{category.category}</option>)}
-        </select>
+          <label className="label">
+            <span className="label-text">news category</span>
+          </label>
+          <select
+            className="select select-bordered w-full"
+            {...register("pricePlan")}
+            required
+          >
+            <option disabled selected>
+              Select news category
+            </option>
+            {categories?.map((category, index) => (
+              <option key={index} value={category.category}>
+                {category.category}
+              </option>
+            ))}
+          </select>
           <label className="label">
             <span className="label-text">News Url*</span>
           </label>

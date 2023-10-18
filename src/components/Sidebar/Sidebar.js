@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { LiaToolsSolid, LiaToolboxSolid } from "react-icons/lia";
-import { BiBookmarkHeart,BiCategoryAlt } from "react-icons/bi";
-import { MdManageAccounts,MdPublishedWithChanges } from "react-icons/md";
+import { BiBookmarkHeart, BiCategoryAlt } from "react-icons/bi";
+import { MdEditNote, MdManageAccounts, MdPublishedWithChanges } from "react-icons/md";
 import { SiRetool } from "react-icons/si";
 import Link from "next/link";
 const Sidebar = ({ children }) => {
@@ -11,7 +11,9 @@ const Sidebar = ({ children }) => {
 
   return (
     <div className="flex flex-row  max-w-[1180px] mx-auto ">
-      <div className={toggle ? "lg:flex hidden basis-1/5 border shadow" : "hidden"}>
+      <div
+        className={toggle ? "lg:flex hidden basis-1/4 border shadow" : "hidden"}
+      >
         <ul className="menu p-2 ">
           <li>
             <Link href="/dashboard">
@@ -50,50 +52,86 @@ const Sidebar = ({ children }) => {
               <MdManageAccounts className="text-2xl" />
               Manage Users
             </Link>
+          </li>
+          <li>
             <Link href="/dashboard/publish-news">
               <MdPublishedWithChanges className="text-2xl" />
               publish news
             </Link>
+          </li>
+
+          <li>
             <Link href="/dashboard/add-ai-category">
               <BiCategoryAlt className="text-2xl" />
-              add category
+              add tools category
+            </Link>
+          </li>
+          <li>
+            <Link href="/dashboard/add-news-category">
+              <MdEditNote className="text-2xl" />
+              add news category
             </Link>
           </li>
         </ul>
       </div>
 
       <div className={toggle ? "hidden" : "lg:flex hidden basis-1/8 border "}>
-        <ul className="menu    p-2">
+      <ul className="menu p-2 ">
           <li>
             <Link href="/dashboard">
               <CgProfile className="text-2xl" />
+             
             </Link>
           </li>
           <li>
             <Link href="/dashboard/submit-tool">
               <LiaToolsSolid className="text-2xl" />
+             
             </Link>
           </li>
 
           <li>
             <Link href="/dashboard/my-ai-tool">
               <LiaToolboxSolid className="text-2xl" />
+             
             </Link>
           </li>
 
           <li>
-            <Link href="/dashboard/my-favorites">
+            <Link href="/favorites">
               <BiBookmarkHeart className="text-2xl" />
+            
             </Link>
           </li>
           <li>
             <Link href="/dashboard/manage-tools">
               <SiRetool className="text-xl" />
+          
             </Link>
           </li>
           <li>
             <Link href="/dashboard/manage-users">
               <MdManageAccounts className="text-2xl" />
+            
+            </Link>
+          </li>
+          <li>
+            <Link href="/dashboard/publish-news">
+              <MdPublishedWithChanges className="text-2xl" />
+             
+            </Link>
+          </li>
+
+          <li>
+            <Link href="/dashboard/add-ai-category">
+              <BiCategoryAlt className="text-2xl" />
+             
+            </Link>
+          </li>
+          <li>
+            <Link href="/dashboard/add-news-category">
+              <MdEditNote className="text-2xl" />
+             
             </Link>
           </li>
         </ul>
