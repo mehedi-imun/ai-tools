@@ -175,6 +175,7 @@ model News {
   id                String         @id @default(cuid())
   title             String
   url               String
+  newsCategory      String
   views             Int            @default(0)
   newsBookmarkCount Int            @default(0)
   createdAt         DateTime       @default(now())
